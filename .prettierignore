@@ -1,0 +1,4 @@
+# O HTML já está formatado manualmente. Não reformatar com o Prettier:
+# backend/services/offline.py depende de trechos exatos (ex.: <link rel="stylesheet" href="...">
+# sem "/>", e o link "Baixar versão offline" em uma única linha).
+frontend/*.html

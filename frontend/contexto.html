@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="pt-BR" data-runtime="api">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#183f32">
+    <meta
+      name="description"
+      content="Explore a produção dos 224 municípios do Piauí, de 2021 a 2025. Um mapa interativo para apoiar a análise territorial.">
+    <title>Piauí em Perspectiva · Atlas produtivo</title>
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon-investe.svg">
+    <link rel="stylesheet" href="assets/css/base.css">
+  </head>
+  <body>
+    <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></symbol>
+        <symbol id="i-search" viewBox="0 0 24 24">
+          <circle cx="10.5" cy="10.5" r="6.5" />
+          <path d="m16 16 4.5 4.5" />
+        </symbol>
+        <symbol id="i-expand" viewBox="0 0 24 24">
+          <path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5" />
+        </symbol>
+        <symbol id="i-download" viewBox="0 0 24 24">
+          <path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5" />
+        </symbol>
+        <symbol id="i-info" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 11v6m0-10v1" />
+        </symbol>
+        <symbol id="i-layers" viewBox="0 0 24 24">
+          <path d="m12 3 10 6-10 6L2 9l10-6ZM2 13l10 6 10-6M2 17l10 6 10-6" />
+        </symbol>
+        <symbol id="i-pin" viewBox="0 0 24 24">
+          <path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" />
+          <circle cx="12" cy="10" r="2" />
+        </symbol>
+        <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6" /></symbol>
+        <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 4 12 8-12 8V4Z" /></symbol>
+        <symbol id="i-reset" viewBox="0 0 24 24"><path d="M4 9a8 8 0 1 1 1 9M4 3v6h6" /></symbol>
+      </defs>
+    </svg>
+
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Investe Piauí, início"
+        ><span class="investe-logo" role="img" aria-label="Investe Piauí"></span
+      ></a>
+      <nav aria-label="Navegação principal">
+        <a href="index.html" class="context-back">Financiamentos</a
+        ><span class="nav-active"
+          ><svg class="icon"><use href="#i-layers" /></svg>Mapa produtivo</span
+        ><button id="insightsButton">Leituras do território</button
+        ><button id="aboutButton">Sobre os dados</button>
+      </nav>
+      <div class="header-actions">
+        <button
+          class="icon-button"
+          id="fullscreenButton"
+          title="Modo de apresentação / tela cheia"
+          aria-label="Modo de apresentação"
+          aria-pressed="false"
+        >
+          <svg class="icon"><use href="#i-expand" /></svg>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="pageTitle">
+        <div>
+          <p class="eyebrow">AGRONEGÓCIO & DESENVOLVIMENTO RURAL</p>
+          <h1 id="pageTitle">Um estado. <em>Muitos potenciais.</em></h1>
+          <p class="intro-copy">
+            Uma leitura dos territórios para orientar novas perguntas e oportunidades de
+            articulação.
+          </p>
+        </div>
+        <button class="tour-start" id="tourButton">
+          <span class="play-round"
+            ><svg class="icon"><use href="#i-play" /></svg></span
+          ><span>Conheça o mapa<small>Um roteiro em 3 leituras</small></span
+          ><svg class="icon"><use href="#i-arrow" /></svg>
+        </button>
+      </section>
+
+      <section class="filter-bar" aria-label="Filtros do mapa">
+        <label class="activity-control"
+          ><span class="field-label">O QUE VAMOS EXPLORAR?</span
+          ><select id="activitySelect" aria-label="Atividade produtiva"></select
+        ></label>
+        <div class="year-control">
+          <span class="field-label">ANO DE REFERÊNCIA</span>
+          <div
+            class="year-buttons"
+            id="yearButtons"
+            role="group"
+            aria-label="Ano de referência"
+          ></div>
+        </div>
+        <label class="metric-control"
+          ><span class="field-label">CORES DO MAPA</span
+          ><select id="metricSelect" aria-label="Indicador de cor">
+            <option value="value">Valor da produção</option>
+            <option value="share">Participação no Piauí</option>
+          </select></label
+        >
+        <button class="export-button" id="exportButton">
+          <svg class="icon"><use href="#i-download" /></svg><span>Exportar seleção</span>
+        </button>
+      </section>
+
+      <div class="shortcuts" aria-label="Atalhos de atividades">
+        <span>Explore também</span><button data-activity="pam:0">Lavouras</button
+        ><button data-activity="ppm:2687">Mel de abelha</button
+        ><button data-activity="ppm:2682">Leite</button
+        ><button data-activity="pevs:3422">Carnaúba (pó)</button
+        ><button data-activity="pam:40124">Soja</button>
+      </div>
+
+      <section class="metrics" aria-label="Resumo da seleção" aria-live="polite">
+        <article>
+          <span class="metric-label"
+            >VALOR DA PRODUÇÃO
+            <svg class="icon mini" aria-hidden="true"><use href="#i-layers" /></svg></span
+          ><strong id="totalValue">—</strong><small>Soma dos municípios · preços correntes</small>
+        </article>
+        <article>
+          <span class="metric-label">MUNICÍPIOS COM VALOR POSITIVO</span
+          ><strong
+            ><span id="positiveCount">—</span><span class="metric-denominator"> / 224</span></strong
+          ><small id="coverageLabel">—</small>
+        </article>
+        <article>
+          <span class="metric-label">CONCENTRAÇÃO NOS 5 MAIORES</span
+          ><strong id="topShare">—</strong><small>Participação no valor somado da atividade</small>
+        </article>
+        <div class="data-stamp">
+          <span class="status-dot"></span>
+          <div><b>Dados observados</b><small>IBGE · 2021–2025</small></div>
+          <button id="sourceInfoButton" class="icon-button" aria-label="Ver fontes e metodologia">
+            <svg class="icon"><use href="#i-info" /></svg>
+          </button>
+        </div>
+      </section>
+
+      <div id="dataNotice" class="data-notice" role="status" hidden></div>
+
+      <section class="explorer" aria-label="Explorador territorial">
+        <article class="map-card">
+          <div class="map-heading">
+            <div>
+              <span class="eyebrow">ATLAS PRODUTIVO</span>
+              <h2 id="mapTitle">Produção no Piauí</h2>
+              <p id="mapSubtitle">—</p>
+            </div>
+            <span class="map-period" id="mapPeriod">2025</span>
+          </div>
+          <div class="map-canvas" id="mapCanvas">
+            <div class="map-hint">
+              <span class="status-dot"></span>Selecione um município para explorar
+            </div>
+            <svg
+              id="mapSvg"
+              viewBox="0 0 780 650"
+              role="group"
+              aria-label="Mapa interativo dos 224 municípios do Piauí"
+            >
+              <defs>
+                <pattern id="unavailablePattern" width="6" height="6" patternUnits="userSpaceOnUse">
+                  <rect width="6" height="6" fill="#f1efe9" />
+                  <path d="M0 6 6 0" stroke="#c7c8c1" stroke-width="1" />
+                </pattern>
+                <filter id="mapShadow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow
+                    dx="0"
+                    dy="5"
+                    stdDeviation="7"
+                    flood-color="#284f3b"
+                    flood-opacity="0.09"
+                  />
+                </filter>
+              </defs>
+              <g id="municipalities" filter="url(#mapShadow)"></g>
+            </svg>
+            <div class="north-arrow" aria-hidden="true">
+              <b>N</b
+              ><svg viewBox="0 0 20 34">
+                <path d="m10 1 8 29-8-8-8 8Z" fill="#315042" />
+                <path d="M10 1v21L2 30Z" fill="#c7d3c6" />
+              </svg>
+            </div>
+            <div class="map-legend" id="mapLegend"></div>
+            <div class="map-controls">
+              <button id="zoomIn" title="Aproximar" aria-label="Aproximar mapa">+</button
+              ><button id="zoomOut" title="Afastar" aria-label="Afastar mapa">−</button
+              ><button id="resetMap" title="Enquadrar Piauí" aria-label="Enquadrar Piauí">
+                <svg class="icon"><use href="#i-reset" /></svg>
+              </button>
+            </div>
+            <span class="map-attribution">Limites: IBGE 2024 · malha simplificada</span>
+            <div id="tooltip" class="map-tooltip" role="tooltip" hidden></div>
+          </div>
+        </article>
+
+        <aside class="detail-card" aria-label="Detalhes do município">
+          <div class="detail-heading">
+            <span class="eyebrow">MUNICÍPIO EM FOCO</span
+            ><button id="clearSelection" class="text-button">
+              Visão estadual <svg class="icon mini"><use href="#i-arrow" /></svg>
+            </button>
+          </div>
+          <div class="search-wrap">
+            <svg class="icon"><use href="#i-search" /></svg
+            ><input
+              id="citySearch"
+              type="search"
+              placeholder="Buscar município…"
+              autocomplete="off"
+              aria-label="Buscar município"
+              aria-controls="searchResults"
+              aria-expanded="false">
+            <div
+              id="searchResults"
+              class="search-results"
+              role="listbox"
+              aria-label="Municípios encontrados"
+              hidden
+            ></div>
+          </div>
+          <div id="detailContent" aria-live="polite"></div>
+        </aside>
+      </section>
+
+      <section class="bottom-grid">
+        <article class="ranking-card">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">DISTRIBUIÇÃO DA PRODUÇÃO</span>
+              <h2>Maiores valores na atividade</h2>
+            </div>
+            <span class="quiet-chip" id="rankingYear">2025</span>
+          </div>
+          <div id="rankingList"></div>
+          <p class="fine-print">
+            Ordem por valor da produção. Não representa prioridade de investimento.
+          </p>
+        </article>
+        <article class="reading-card">
+          <span class="reading-number">01 / LEITURA TERRITORIAL</span>
+          <h2>O lugar muda.<br>A perspectiva também.</h2>
+          <p id="readingText">
+            Compare atividades e descubra diferentes distribuições da produção no estado.
+          </p>
+          <button id="readingTourButton">
+            Explorar as três leituras <svg class="icon"><use href="#i-arrow" /></svg></button
+          ><span class="reading-outline" aria-hidden="true">PI</span>
+        </article>
+      </section>
+
+      <section class="next-layer">
+        <span class="next-layer-icon"
+          ><svg class="icon"><use href="#i-layers" /></svg
+        ></span>
+        <div>
+          <b>Produção e financiamento, em duas perspectivas</b>
+          <p>
+            O painel financeiro reúne Fundo Clima e FNE Verde em visões separadas. Use a produção
+            como contexto; este mapa não mede acesso a crédito.
+          </p>
+        </div>
+        <a class="pending-badge" href="index.html">VER FINANCIAMENTOS ↗</a>
+      </section>
+      <footer>
+        <span class="footer-theme"
+          ><b>Acesso a financiamento sustentável (fundos ESG/impacto)</b
+          ><small>Agronegócio e desenvolvimento rural</small></span
+        >
+        <div>
+          <a href="contexto-offline.html" download="Piaui_Contexto_Produtivo.html">Baixar versão offline</a>
+          <button id="footerAbout">Fontes e metodologia</button
+          ><span>Protótipo para discussão · nov. 2026</span>
+        </div>
+      </footer>
+    </main>
+
+    <div class="tour-card" id="tourCard" hidden role="region" aria-label="Roteiro de apresentação">
+      <button class="tour-close icon-button" id="tourClose" aria-label="Encerrar roteiro">
+        <svg class="icon"><use href="#i-close" /></svg></button
+      ><span class="tour-counter" id="tourCounter">LEITURA 1 DE 3</span>
+      <h3 id="tourTitle"></h3>
+      <p id="tourCopy"></p>
+      <div class="tour-bottom">
+        <div class="tour-dots" id="tourDots"></div>
+        <button id="tourPrev" class="text-button">Anterior</button
+        ><button id="tourNext" class="solid-button">
+          Próxima leitura <svg class="icon"><use href="#i-arrow" /></svg>
+        </button>
+      </div>
+    </div>
+
+    <dialog id="aboutDialog" class="info-dialog">
+      <div class="dialog-top">
+        <span class="eyebrow">TRANSPARÊNCIA & CONTEXTO</span
+        ><button id="closeAbout" class="icon-button" aria-label="Fechar informações">
+          <svg class="icon"><use href="#i-close" /></svg>
+        </button>
+      </div>
+      <h2>O que este mapa nos conta.</h2>
+      <p>
+        Uma primeira leitura da produção dos municípios do Piauí. Dados observados para discutir
+        territórios; a priorização de projetos será construída com a Investe.
+      </p>
+      <div class="source-list">
+        <a href="https://sidra.ibge.gov.br/tabela/5457" target="_blank" rel="noopener"
+          ><b>PAM · tabela 5457</b><span>Valor das lavouras temporárias e permanentes</span
+          ><svg class="icon"><use href="#i-arrow" /></svg></a
+        ><a href="https://sidra.ibge.gov.br/tabela/74" target="_blank" rel="noopener"
+          ><b>PPM · tabela 74</b><span>Produtos de origem animal: leite, ovos, mel e outros</span
+          ><svg class="icon"><use href="#i-arrow" /></svg></a
+        ><a href="https://sidra.ibge.gov.br/tabela/289" target="_blank" rel="noopener"
+          ><b>PEVS · tabela 289</b><span>Produtos da extração vegetal</span
+          ><svg class="icon"><use href="#i-arrow" /></svg
+        ></a>
+      </div>
+      <h3>Como interpretar</h3>
+      <ul>
+        <li>
+          Período: 2021–2025. Coleta registrada em 22/10/2026. Valores em reais correntes, sem
+          ajuste pela inflação.
+        </li>
+        <li>
+          Totais e participações usam a soma dos valores municipais da mesma atividade e ano. Pode
+          haver pequena diferença em relação ao total estadual publicado por arredondamento.
+        </li>
+        <li>
+          As cores usam quintis dos valores positivos, recalculados a cada seleção. Empates podem
+          reduzir o número de faixas distintas. Zero e dado indisponível são exibidos separadamente.
+        </li>
+        <li>
+          A lista de outras atividades inclui produtos com valor positivo. Não estabelece perfil
+          predominante, relevância mínima ou sustentabilidade.
+        </li>
+        <li>
+          Produtos novos ou encerrados em 2025 exigem cuidado ao comparar anos. Indisponibilidade
+          não significa produção zero.
+        </li>
+        <li>
+          As pesquisas não cobrem todo o agronegócio: não se apresenta a tabela de produtos animais
+          como valor de toda a pecuária, nem a extração vegetal como silvicultura.
+        </li>
+      </ul>
+      <h3>O que ainda depende de dados e validação</h3>
+      <p>
+        Complementar a cobertura do crédito rural e do financiamento sustentável, identificar
+        agricultura familiar e cooperativas, carteira e preparação de projetos. Não há cálculo de
+        demanda reprimida, elegibilidade ou prioridade financeira.
+      </p>
+      <p class="geometry-note">
+        Limites municipais:
+        <a
+          href="https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_municipais/municipio_2024/UFs/PI/PI_Municipios_2024.zip"
+          target="_blank"
+          rel="noopener"
+          >malha oficial IBGE 2024</a
+        >, simplificada para visualização e usada em todos os anos. Não é uma representação da
+        evolução dos limites territoriais.
+      </p>
+      <div class="dialog-disclaimer">
+        Protótipo acadêmico do Grupo 7. Não é um produto oficial da Investe Piauí.
+      </div>
+    </dialog>
+    <dialog id="insightsDialog" class="info-dialog insights-dialog">
+      <div class="dialog-top">
+        <span class="eyebrow">LEITURAS DO TERRITÓRIO</span
+        ><button id="closeInsights" class="icon-button" aria-label="Fechar leituras">
+          <svg class="icon"><use href="#i-close" /></svg>
+        </button>
+      </div>
+      <h2>Três formas de olhar o Piauí.</h2>
+      <p>
+        Resultados descritivos de 2025. Cada atividade tem sua própria distribuição territorial.
+      </p>
+      <div id="insightCards"></div>
+      <p class="dialog-disclaimer">
+        São pistas para investigação. Produção, isoladamente, não demonstra sustentabilidade ou
+        necessidade de financiamento.
+      </p>
+    </dialog>
+    <div id="toast" class="toast" role="status" hidden></div>
+    <noscript>Ative o JavaScript para explorar o mapa e seus filtros.</noscript>
+
+    <script src="assets/js/bootstrap.js" defer data-page="context"></script>
+  </body>
+</html>

@@ -1,0 +1,158 @@
+id,label,source,parentLabel,level
+pam:0,Total,pam,,total
+pam:40092,Abacaxi*,pam,Total,produto
+pam:40099,Algodão herbáceo (em caroço),pam,Total,produto
+pam:40100,Alho,pam,Total,produto
+pam:40101,Amendoim (em casca),pam,Total,produto
+pam:40102,Arroz (em casca),pam,Total,produto
+pam:40103,Aveia (em grão),pam,Total,produto
+pam:40104,Batata-doce,pam,Total,produto
+pam:40105,Batata-inglesa,pam,Total,produto
+pam:40106,Cana-de-açúcar,pam,Total,produto
+pam:40107,Cebola,pam,Total,produto
+pam:40108,Centeio (em grão),pam,Total,produto
+pam:40109,Cevada (em grão),pam,Total,produto
+pam:40110,Ervilha (em grão),pam,Total,produto
+pam:40111,Fava (em grão),pam,Total,produto
+pam:40112,Feijão (em grão),pam,Total,produto
+pam:40113,Fumo (em folha),pam,Total,produto
+pam:40114,Girassol (em grão),pam,Total,produto
+pam:40115,Juta (fibra),pam,Total,produto
+pam:40116,Linho (semente),pam,Total,produto
+pam:40117,Malva (fibra),pam,Total,produto
+pam:40118,Mamona (baga),pam,Total,produto
+pam:40119,Mandioca,pam,Total,produto
+pam:40120,Melancia,pam,Total,produto
+pam:40121,Melão,pam,Total,produto
+pam:40122,Milho (em grão),pam,Total,produto
+pam:40123,Rami (fibra),pam,Total,produto
+pam:40124,Soja (em grão),pam,Total,produto
+pam:40125,Sorgo (em grão),pam,Total,produto
+pam:40126,Tomate,pam,Total,produto
+pam:40127,Trigo (em grão),pam,Total,produto
+pam:40128,Triticale (em grão),pam,Total,produto
+pam:40129,Abacate,pam,Total,produto
+pam:40130,Algodão arbóreo (em caroço),pam,Total,produto
+pam:40131,Azeitona,pam,Total,produto
+pam:40136,Banana (cacho),pam,Total,produto
+pam:40137,Borracha (látex coagulado),pam,Total,produto
+pam:40138,Cacau (em amêndoa),pam,Total,produto
+pam:40139,Café (em grão) Total,pam,Total,subtotal
+pam:40140,Café (em grão) Arábica,pam,Café (em grão) Total,produto
+pam:40141,Café (em grão) Canephora,pam,Café (em grão) Total,produto
+pam:40142,Caqui,pam,Total,produto
+pam:40143,Castanha de caju,pam,Total,produto
+pam:40144,Chá-da-índia (folha verde),pam,Total,produto
+pam:40145,Coco-da-baía*,pam,Total,produto
+pam:40146,Dendê (cacho de coco),pam,Total,produto
+pam:40147,Erva-mate (folha verde),pam,Total,produto
+pam:40148,Figo,pam,Total,produto
+pam:40149,Goiaba,pam,Total,produto
+pam:40150,Guaraná (semente),pam,Total,produto
+pam:40151,Laranja,pam,Total,produto
+pam:40152,Limão,pam,Total,produto
+pam:40260,Maçã,pam,Total,produto
+pam:40261,Mamão,pam,Total,produto
+pam:40262,Manga,pam,Total,produto
+pam:40263,Maracujá,pam,Total,produto
+pam:40264,Marmelo,pam,Total,produto
+pam:40265,Noz (fruto seco),pam,Total,produto
+pam:40266,Palmito,pam,Total,produto
+pam:40267,Pera,pam,Total,produto
+pam:40268,Pêssego,pam,Total,produto
+pam:40269,Pimenta-do-reino,pam,Total,produto
+pam:40270,Sisal ou agave (fibra),pam,Total,produto
+pam:40271,Tangerina,pam,Total,produto
+pam:40272,Tungue (fruto seco),pam,Total,produto
+pam:40273,Urucum (semente),pam,Total,produto
+pam:40274,Uva,pam,Total,produto
+pam:40329,Alfafa fenada,pam,Total,produto
+pam:40330,Caju,pam,Total,produto
+pam:40331,Cana para forragem,pam,Total,produto
+pam:40468,Borracha (látex líquido),pam,Total,produto
+pam:45982,Açaí,pam,Total,produto
+pam:83388,Abóbora,pam,Total,produto
+pam:83389,Alface,pam,Total,produto
+pam:83390,Canola,pam,Total,produto
+pam:83391,Cenoura,pam,Total,produto
+pam:83392,Chuchu,pam,Total,produto
+pam:83393,Inhame,pam,Total,produto
+pam:83394,Milho verde,pam,Total,produto
+pam:83395,Gergelim,pam,Total,produto
+pam:83396,Morango,pam,Total,produto
+pam:83397,Pimentão,pam,Total,produto
+pam:83398,Repolho,pam,Total,produto
+pam:83399,Acerola,pam,Total,produto
+pam:83400,Cupuaçu,pam,Total,produto
+pam:83401,Graviola,pam,Total,produto
+ppm:0,Total,ppm,,total
+ppm:2682,Leite,ppm,Total,produto
+ppm:2683,Casulos do bicho-da-seda,ppm,Total,produto
+ppm:2684,Lã,ppm,Total,produto
+ppm:2685,Ovos de galinha,ppm,Total,produto
+ppm:2686,Ovos de codorna,ppm,Total,produto
+ppm:2687,Mel de abelha,ppm,Total,produto
+pevs:0,Total,pevs,,total
+pevs:110011,4.3 - Outras,pevs,4 - Ceras,produto
+pevs:11296,1.18 - Outros,pevs,1 - Alimentícios,produto
+pevs:3402,1 - Alimentícios,pevs,Total,grupo
+pevs:3403,1.1 - Açaí (fruto),pevs,1 - Alimentícios,produto
+pevs:3404,1.5 - Castanha-de-caju,pevs,1 - Alimentícios,produto
+pevs:3405,1.6 - Castanha-do-pará,pevs,1 - Alimentícios,produto
+pevs:3406,1.8 - Erva-mate,pevs,1 - Alimentícios,produto
+pevs:3407,1.11 - Mangaba (fruto),pevs,1 - Alimentícios,produto
+pevs:3408,1.12 - Palmito,pevs,1 - Alimentícios,produto
+pevs:3409,1.14 - Pinhão,pevs,1 - Alimentícios,produto
+pevs:3410,1.17 - Umbu (fruto),pevs,1 - Alimentícios,produto
+pevs:3411,"2 - Aromáticos, medicinais, tóxicos e corantes",pevs,Total,grupo
+pevs:3412,2.1 - Ipecacuanha ou poaia (raiz),pevs,"2 - Aromáticos, medicinais, tóxicos e corantes",produto
+pevs:3413,2.2 - Jaborandi (folha),pevs,"2 - Aromáticos, medicinais, tóxicos e corantes",produto
+pevs:3414,2.3 - Urucum (semente),pevs,"2 - Aromáticos, medicinais, tóxicos e corantes",produto
+pevs:3415,2.4 - Outros,pevs,"2 - Aromáticos, medicinais, tóxicos e corantes",produto
+pevs:3416,3 - Borrachas,pevs,Total,grupo
+pevs:3417,3.1 - Caucho,pevs,3 - Borrachas,produto
+pevs:3418,3.2 - Hevea (látex coagulado),pevs,3 - Borrachas,produto
+pevs:3419,3.3 - Hevea (látex líquido),pevs,3 - Borrachas,produto
+pevs:3420,4 - Ceras,pevs,Total,grupo
+pevs:3421,4.1 - Carnaúba (cera),pevs,4 - Ceras,produto
+pevs:3422,4.2 - Carnaúba (pó),pevs,4 - Ceras,produto
+pevs:3423,5 - Fibras,pevs,Total,grupo
+pevs:3424,5.1 - Buriti,pevs,5 - Fibras,produto
+pevs:3425,5.2 - Carnaúba,pevs,5 - Fibras,produto
+pevs:3426,5.3 - Piaçava,pevs,5 - Fibras,produto
+pevs:3427,5.4 - Outras,pevs,5 - Fibras,produto
+pevs:3428,6 - Gomas não elásticas,pevs,Total,grupo
+pevs:3429,6.1 - Balata,pevs,6 - Gomas não elásticas,produto
+pevs:3430,6.2 - Maçaranduba,pevs,6 - Gomas não elásticas,produto
+pevs:3431,6.3 - Sorva,pevs,6 - Gomas não elásticas,produto
+pevs:3433,7.1 - Carvão vegetal,pevs,Total,produto
+pevs:3434,7.2 - Lenha,pevs,Total,produto
+pevs:3435,7.3 - Madeira em tora,pevs,Total,produto
+pevs:3438,8 - Oleaginosos,pevs,Total,grupo
+pevs:3439,8.2 - Babaçu (amêndoa),pevs,8 - Oleaginosos,produto
+pevs:3440,8.3 - Copaíba (óleo),pevs,8 - Oleaginosos,produto
+pevs:3441,8.4 - Cumaru (amêndoa),pevs,8 - Oleaginosos,produto
+pevs:3442,8.5 - Licuri (coquilho),pevs,8 - Oleaginosos,produto
+pevs:3443,8.7 - Oiticica (semente),pevs,8 - Oleaginosos,produto
+pevs:3444,8.8 - Pequi (amêndoa),pevs,8 - Oleaginosos,produto
+pevs:3445,8.9 - Tucum (amêndoa),pevs,8 - Oleaginosos,produto
+pevs:3446,8.10 - Outros,pevs,8 - Oleaginosos,produto
+pevs:3448,9.1 - Pinheiro brasileiro (nó de pinho),pevs,Total,produto
+pevs:3449,9.2 - Pinheiro brasileiro (árvores abatidas),pevs,Total,produto
+pevs:3450,9.3 - Pinheiro brasileiro (madeira em tora),pevs,Total,produto
+pevs:3451,10 - Tanantes,pevs,Total,grupo
+pevs:3452,10.1 - Angico (casca),pevs,10 - Tanantes,produto
+pevs:3453,10.2 - Barbatimão (casca),pevs,10 - Tanantes,produto
+pevs:3454,10.3 - Outros,pevs,10 - Tanantes,produto
+pevs:39409,1.13 - Pequi (fruto),pevs,1 - Alimentícios,produto
+pevs:40524,3.4 - Mangabeira,pevs,3 - Borrachas,produto
+pevs:83410,1.2 - Baru ou Cumaru (amêndoa),pevs,1 - Alimentícios,produto
+pevs:83411,1.3 - Buriti (fruto),pevs,1 - Alimentícios,produto
+pevs:83412,1.4 - Cajá (fruto),pevs,1 - Alimentícios,produto
+pevs:83413,1.7 - Cupuaçu (fruto),pevs,1 - Alimentícios,produto
+pevs:83414,1.9 - Juçara (fruto),pevs,1 - Alimentícios,produto
+pevs:83415,1.10 - Macaúba (fruto),pevs,1 - Alimentícios,produto
+pevs:83416,1.15 - Pupunha (fruto),pevs,1 - Alimentícios,produto
+pevs:83417,1.16 - Tucumã ou Tucum (fruto),pevs,1 - Alimentícios,produto
+pevs:83418,8.1 - Andiroba (amêndoa),pevs,8 - Oleaginosos,produto
+pevs:83419,8.6 - Murumuru,pevs,8 - Oleaginosos,produto

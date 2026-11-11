@@ -1,0 +1,16 @@
+{
+  "years": [
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "collected": "2026-10-22",
+  "sources": {
+    "pam": "https://sidra.ibge.gov.br/tabela/5457",
+    "ppm": "https://sidra.ibge.gov.br/tabela/74",
+    "pevs": "https://sidra.ibge.gov.br/tabela/289",
+    "mesh": "https://geoftp.ibge.gov.br/organizacao_do_territorio/malhas_territoriais/malhas_municipais/municipio_2024/UFs/PI/PI_Municipios_2024.zip"
+  }
+}

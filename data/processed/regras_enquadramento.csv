@@ -1,0 +1,8 @@
+id,sector,description
+AG01,agro,CNAE A01 ou A02 produtivo; conservação de florestas nativas A0220906 exige evidência adicional.
+AG02,agro,"CNAE C10/C11: processamento de alimentos e bebidas, como agroindústria."
+AG03,agro,Descrição explicita matéria-prima agropecuária e transformação/bioenergia; ou sistema agroflorestal produtivo.
+ER01,energia,"Nome da atividade ou descrição explicita solar, eólica, biomassa, biogás, biometano, biocombustível, etanol ou PCH."
+LG01,logistica,"CNAE de transporte ferroviário, rodoviário ou aquaviário de carga; armazenagem/atividades auxiliares H52."
+LG02,logistica,Descrição explicita logística de carga. Transporte de passageiros sem evidência de carga fica fora deste recorte.
+REV01,agro;energia,"Brasbio: vínculo revisto com evidência no Relatório Anual Integrado BNDES 2025, página 156 do PDF."

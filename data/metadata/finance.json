@@ -1,0 +1,18 @@
+{
+  "sourceUrls": {
+    "FC_NAO_AUTOMATICAS": "https://bndes.gov.br/wps/wcm/connect/site/7ae11593-4f5d-4b0c-a391-b9c183954a77/1.%2BFundo%2BClima%2Bnao%2Bautomaticas%2B31082026.xlsx?CVID=q22fQux&MOD=AJPERES",
+    "FC_AUTOMATICAS": "https://bndes.gov.br/wps/wcm/connect/site/801d609b-789d-4f14-b9de-dbd5d9cccee3/2.%2BFundo%2BClima%2Bautomaticas%2B31082026.xlsx?CVID=q22fUA5&MOD=AJPERES"
+  },
+  "snapshot": "2026-10-26",
+  "evidenceUrl": "https://www.bndes.gov.br/hotsites/Relatorio_Anual_2025/BNDES_RA2025_DIGITAL.pdf#page=156",
+  "sourceDates": {
+    "FC_AUTOMATICAS": "Até 31/08/2026",
+    "FC_NAO_AUTOMATICAS": "Apuração: 25/09/2026"
+  },
+  "scope": "Contratações 2021–2025; valores nominais; uma fonte de operações: Fundo Clima.",
+  "annualReportNote": "Relatório Anual Integrado BNDES 2025, página 156 do PDF: cogeração por biomassa para o complexo de etanol, DDGS e óleo de milho da Brasbio em Uruçuí.",
+  "interstateTitles": {
+    "FC_NA:25204271": "Projeto de 50 usinas solares em vários estados",
+    "FC_NA:24203221": "Projeto de 39 usinas solares em vários estados"
+  }
+}

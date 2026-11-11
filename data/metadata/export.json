@@ -1,0 +1,21 @@
+{
+  "project": "Piauí em Perspectiva",
+  "exported_snapshot": "2026-11-10",
+  "source_commit": "b231fbbe104960d2bef9be96cc1e227a3052d845",
+  "source_url": "https://piaui-territorios-grupo7.insaninhosb.chatgpt.site",
+  "records": {
+    "fne_pi": 2678,
+    "fne_ufs": 591,
+    "fundo_clima": 313,
+    "municipios": 224,
+    "producao_municipal": 175840
+  },
+  "fne_2023_coverage": "2023-01-01 a 2023-09-30",
+  "internal_data": "pending",
+  "interface_source_commit": "657587ac9eeeff44849d5ab5b6184aa537219f3c",
+  "interface_updated": "2026-11-11",
+  "esg_demo": {
+    "simulated_projects": 3,
+    "real_projects_without_score": 1
+  }
+}

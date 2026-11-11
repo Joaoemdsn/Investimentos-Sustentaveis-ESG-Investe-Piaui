@@ -1,0 +1,97 @@
+{
+  "sources": {
+    "BNB_2021_12": {
+      "publisher": "Banco do Nordeste",
+      "description": "Contratações FNE. Aba GERAL. Ano completo.",
+      "cutoff": "2021-12-31",
+      "url": "https://www.bnb.gov.br/documents/45743/168724/Contrata%C3%A7%C3%B5es+FNE+-+Dezembro+2021.ods/ee6f624a-f3c8-ec9e-a62d-833c5e2cdef3?version=2.0&t=1652122479783",
+      "sha256": "72237bd5e1a3d5f8ae19098f4e85080a40e5d65ba656541071298257f00740e6"
+    },
+    "BNB_2022_12": {
+      "publisher": "Banco do Nordeste",
+      "description": "Contratações FNE. Aba GERAL. Ano completo.",
+      "cutoff": "2022-12-31",
+      "url": "https://www.bnb.gov.br/documents/45743/168724/Contrata%C3%A7%C3%B5es+FNE+-+Dezembro+2022.ods/bcd21897-baab-faaa-6924-f15fc9af2302?version=1.0&t=1674672558283",
+      "sha256": "8e59f48fd9ce8e22c0c2fea6ca0bd0b005201664882adfefcd6500c9109cc00f"
+    },
+    "BNB_2023_09": {
+      "publisher": "Banco do Nordeste",
+      "description": "Contratações FNE. Aba GERAL. Jan–set (parcial).",
+      "cutoff": "2023-09-30",
+      "url": "https://www.bnb.gov.br/documents/45743/168724/Contrata%C3%A7%C3%B5es+FNE+-+Setembro+2023.ods/f375fef9-c048-5317-02f0-f11219c4f6e3?version=1.0&t=1714675867126",
+      "sha256": "06e72ff55f5688e8997d04760b8e6c510a548f5cfcd2d0d074f315978e3b86e2"
+    },
+    "BNB_2024_12": {
+      "publisher": "Banco do Nordeste",
+      "description": "Contratações FNE. Aba GERAL. Ano completo.",
+      "cutoff": "2024-12-31",
+      "url": "https://www.bnb.gov.br/documents/45743/168724/Contrata%C3%A7%C3%B5es+FNE+-+Dezembro+2024.ods/aa167397-2680-515c-9ebe-cfdae248462c?version=1.0&t=1741635604617",
+      "sha256": "8e059653fb863f2cd59e7b04b7c639a241a61b5f67a061521aa4ebea33c18e14"
+    },
+    "BNB_2025_12": {
+      "publisher": "Banco do Nordeste",
+      "description": "Contratações FNE. Aba GERAL. Ano completo.",
+      "cutoff": "2025-12-31",
+      "url": "https://www.bnb.gov.br/documents/45743/168724/Contrata%C3%A7%C3%B5es+FNE+-+Dezembro+2025.ods/9a81a627-7f44-cb96-b3bb-ffb41ac48c9a?version=1.0&t=1772028528924",
+      "sha256": "febce55666acc8408cc1940f43ecc7d29e3c9db0f8bd3686740e95307a273531"
+    },
+    "BNB_REL_2023": {
+      "publisher": "Banco do Nordeste",
+      "description": "Relatório de Gestão 2023, página 40 do PDF. Programa FNE Verde. Exercício completo e área de atuação do FNE.",
+      "cutoff": "2023-12-31",
+      "url": "https://www.bnb.gov.br/documents/45799/1631711/Relat%C3%B3rio+de+Gest%C3%A3o+do+FNE+-+2023.pdf/3d7e63d4-bb70-e3b3-6114-8c4003d3c7dd?version=1.0&t=1711550369166",
+      "sha256": null
+    }
+  },
+  "years": [
+    {
+      "year": 2021,
+      "cutoff": "2021-12-31",
+      "piCents": 119338476223,
+      "neCents": 630643904233,
+      "areaCents": 675945557348,
+      "lines": 521
+    },
+    {
+      "year": 2022,
+      "cutoff": "2022-12-31",
+      "piCents": 6826264477,
+      "neCents": 520920476531,
+      "areaCents": 622036321934,
+      "lines": 665
+    },
+    {
+      "year": 2023,
+      "cutoff": "2023-09-30",
+      "piCents": 25764485317,
+      "neCents": 638764725155,
+      "areaCents": 720802818814,
+      "lines": 417
+    },
+    {
+      "year": 2024,
+      "cutoff": "2024-12-31",
+      "piCents": 17547878442,
+      "neCents": 589782542007,
+      "areaCents": 710504562466,
+      "lines": 617
+    },
+    {
+      "year": 2025,
+      "cutoff": "2025-12-31",
+      "piCents": 46969726861,
+      "neCents": 346669971575,
+      "areaCents": 439961487690,
+      "lines": 458
+    }
+  ],
+  "snapshot": "2026-11-10",
+  "workbookSha256": "74818be832cf9e2996a1d09a5645fc2896ff7ef7e7179f4fb0caf0df3fb9eca0",
+  "annualReference2023": {
+    "operations": 6806,
+    "cents": 1093220000000,
+    "url": "https://www.bnb.gov.br/documents/45799/1631711/Relat%C3%B3rio+de+Gest%C3%A3o+do+FNE+-+2023.pdf/3d7e63d4-bb70-e3b3-6114-8c4003d3c7dd?version=1.0&t=1711550369166",
+    "page": 40,
+    "note": "Programa FNE Verde no relatório anual; área de atuação do FNE; classificação própria do relatório. Não completa o recorte municipal de janeiro a setembro."
+  }
+}

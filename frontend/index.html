@@ -1,0 +1,719 @@
+<!doctype html>
+<html lang="pt-BR" data-runtime="api">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#183f32">
+    <meta
+      name="description"
+      content="Acesso a financiamento sustentável no Piauí: agro, energias renováveis e logística. Evidências públicas de 2021 a 2025.">
+    <title>Piauí em Perspectiva · Financiamento sustentável</title>
+    <link rel="icon" href="assets/images/favicon-investe.svg">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+    <link rel="stylesheet" href="assets/css/esg.css">
+  </head>
+  <body class="finance-page">
+    <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></symbol>
+        <symbol id="i-search" viewBox="0 0 24 24">
+          <circle cx="10.5" cy="10.5" r="6.5" />
+          <path d="m16 16 4.5 4.5" />
+        </symbol>
+        <symbol id="i-expand" viewBox="0 0 24 24">
+          <path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5" />
+        </symbol>
+        <symbol id="i-download" viewBox="0 0 24 24">
+          <path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5" />
+        </symbol>
+        <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6" /></symbol>
+        <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 4 12 8-12 8V4Z" /></symbol>
+        <symbol id="i-reset" viewBox="0 0 24 24"><path d="M4 9a8 8 0 1 1 1 9M4 3v6h6" /></symbol>
+      </defs>
+    </svg>
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="Investe Piauí, início"
+        ><span class="investe-logo" role="img" aria-label="Investe Piauí"></span
+      ></a>
+      <nav aria-label="Navegação principal">
+        <button id="navOverview" class="nav-active" aria-current="page">Financiamentos</button
+        ><button id="navInternal">Visão interna</button><button id="navEsg">Pontuação ESG</button
+        ><button id="navCatalog">Instrumentos</button
+        ><a href="contexto.html" id="contextLink">Contexto produtivo</a
+        ><button id="navSources">Fontes e método</button>
+      </nav>
+      <div class="header-actions">
+        <button
+          class="icon-button"
+          id="presentButton"
+          aria-label="Modo de apresentação"
+          aria-pressed="false"
+          title="Modo de apresentação"
+        >
+          <svg class="icon"><use href="#i-expand" /></svg>
+        </button>
+      </div>
+    </header>
+    <main>
+      <section class="intro">
+        <div>
+          <p class="eyebrow">AGRO · ENERGIAS RENOVÁVEIS · LOGÍSTICA</p>
+          <h1>Financiamento em foco.<br><em>Oportunidades com evidência.</em></h1>
+          <p class="intro-copy">
+            Onde o financiamento chega — e o que precisamos conhecer para ampliar o acesso no Piauí?
+          </p>
+        </div>
+        <button class="tour-start" id="financeTourButton">
+          <span class="play-round"
+            ><svg class="icon"><use href="#i-play" /></svg></span
+          ><span>Apresentar os achados<small>Três leituras para a conversa</small></span
+          ><svg class="icon"><use href="#i-arrow" /></svg>
+        </button>
+      </section>
+      <div class="sector-tabs" role="group" aria-label="Nicho de análise">
+        <button data-sector="todos" aria-pressed="true">Visão integrada <span>03</span></button
+        ><button data-sector="agro" aria-pressed="false">Agro & bioeconomia</button
+        ><button data-sector="energia" aria-pressed="false">Energias renováveis</button
+        ><button data-sector="logistica" aria-pressed="false">Logística de cargas</button>
+      </div>
+      <section class="finance-filters" aria-label="Filtros de financiamento">
+        <label
+          ><span class="field-label">INSTRUMENTO</span
+          ><select id="instrumentFilter">
+            <option value="FUNDO_CLIMA">Fundo Clima · dados coletados</option>
+            <option value="FNE_VERDE">FNE Verde · dados agregados</option>
+            <option value="RENOVAGRO">Renovagro · em coleta</option>
+          </select></label
+        ><label
+          ><span class="field-label">CONTRATAÇÃO</span
+          ><select id="yearFilter">
+            <option value="todos">2021–2025</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+          </select></label
+        ><label
+          ><span class="field-label">PORTE PUBLICADO</span
+          ><select id="sizeFilter">
+            <option value="todos">Todos os portes</option>
+          </select></label
+        ><label
+          ><span class="field-label">COMPARAR COM</span
+          ><select id="comparisonFilter">
+            <option value="NE">Nordeste</option>
+            <option value="BR">Brasil</option>
+          </select></label
+        >
+        <div class="export-wrap">
+          <button
+            class="export-button"
+            id="financeExport"
+            aria-expanded="false"
+            aria-controls="exportOptions"
+          >
+            <svg class="icon"><use href="#i-download" /></svg>Exportar dados
+          </button>
+          <div class="export-menu" id="exportOptions" hidden>
+            <button data-export="pi">Registros do Piauí</button
+            ><button data-export="comparison">Registros da comparação</button
+            ><button data-export="mentions">Menções ao Piauí em outros estados / IE</button
+            ><button data-export="catalog">Catálogo de instrumentos</button>
+          </div>
+        </div>
+      </section>
+      <label id="fneLineControl" class="fne-line-control" hidden
+        ><span class="field-label">LINHA DE FINANCIAMENTO · FNE VERDE</span
+        ><select id="fneLine">
+          <option value="todos">Todas as linhas</option>
+          <option>FNE Verde: demais linhas</option>
+          <option>FNE Verde MPE</option>
+          <option>FNE Verde Sol PF</option>
+        </select></label
+      >
+      <section class="five-metrics" aria-label="Cinco indicadores" aria-live="polite">
+        <article>
+          <span class="metric-label">CONTRATADO · UF PIAUÍ</span><strong id="financeTotal">—</strong
+          ><small id="financeTotalNote"></small>
+        </article>
+        <article>
+          <span class="metric-label">OPERAÇÕES / REGISTROS · PI</span
+          ><strong id="financeCount">—</strong><small id="financeCountNote"></small>
+        </article>
+        <article>
+          <span class="metric-label">PARTICIPAÇÃO DO PIAUÍ</span><strong id="financeShare">—</strong
+          ><small id="financeShareNote"></small>
+        </article>
+        <article>
+          <span class="metric-label">PORTE COM MAIOR VALOR · PI</span
+          ><strong id="financeSize">—</strong><small id="financeSizeNote"></small>
+        </article>
+        <article>
+          <span class="metric-label">INSTRUMENTOS MAPEADOS</span
+          ><strong id="financeMapped">—</strong
+          ><small>Catálogo documental · não depende do ano</small>
+        </article>
+      </section>
+      <div class="scope-line">
+        <span><i class="status-dot"></i><b id="scopeLine"></b></span
+        ><button id="scopeMethod">Entenda o recorte ↗</button>
+      </div>
+      <div id="overviewPane">
+        <div class="data-notice" id="financeNotice" role="status"></div>
+        <section class="finance-explorer" aria-label="Financiamento no território">
+          <article class="map-card">
+            <div class="map-heading">
+              <div>
+                <span class="eyebrow">ONDE O REGISTRO ESTÁ LOCALIZADO</span>
+                <h2>Financiamento observado no Piauí</h2>
+                <p>Município informado na lista · não confirma a localização física do projeto</p>
+              </div>
+              <span class="map-period" id="financeMapPeriod">2021–2025</span>
+            </div>
+            <div class="map-canvas finance-map-canvas" id="financeMapCanvas">
+              <div class="map-hint" id="financeMapHint">Selecione um município para explorar</div>
+              <svg
+                id="financeMap"
+                viewBox="0 0 780 650"
+                role="group"
+                aria-label="Mapa dos 224 municípios do Piauí"
+              >
+                <g id="financePolygons"></g>
+              </svg>
+              <div class="north-arrow" aria-hidden="true">
+                <b>N</b
+                ><svg viewBox="0 0 20 34"><path d="m10 1 8 29-8-8-8 8Z" fill="#315042" /></svg>
+              </div>
+              <div class="map-legend">
+                <b class="legend-title">Presença na seleção</b>
+                <div class="legend-row">
+                  <i style="background: #396a46"></i>Com registro localizado
+                </div>
+                <div class="legend-row">
+                  <i style="background: #e2e7dc"></i>Sem registro nesta base
+                </div>
+                <p class="legend-note">
+                  Ausência na lista não significa ausência de financiamento.
+                </p>
+              </div>
+              <div class="map-controls">
+                <button id="financeZoomIn" aria-label="Aproximar mapa">+</button
+                ><button id="financeZoomOut" aria-label="Afastar mapa">−</button
+                ><button id="financeReset" aria-label="Enquadrar Piauí">
+                  <svg class="icon"><use href="#i-reset" /></svg>
+                </button>
+              </div>
+              <span class="map-attribution">Limites IBGE 2024 · malha simplificada</span>
+              <div class="map-tooltip" id="financeTooltip" hidden></div>
+            </div>
+          </article>
+          <aside class="financial-focus">
+            <div class="detail-heading">
+              <span class="eyebrow">MUNICÍPIO EM FOCO</span
+              ><button class="text-button" id="focusState">Visão estadual ↗</button>
+            </div>
+            <div class="search-wrap">
+              <svg class="icon"><use href="#i-search" /></svg
+              ><input
+                id="financeSearch"
+                type="search"
+                placeholder="Buscar município…"
+                autocomplete="off"
+                aria-label="Buscar município"
+                aria-expanded="false"
+                aria-controls="financeSearchResults">
+              <div class="search-results" id="financeSearchResults" hidden></div>
+            </div>
+            <div id="financeFocus" aria-live="polite"></div>
+          </aside>
+        </section>
+        <section class="finance-charts">
+          <article class="finance-panel">
+            <div class="section-heading">
+              <div>
+                <span class="eyebrow">EVOLUÇÃO DA CONTRATAÇÃO · PI</span>
+                <h2>Cinco anos, na mesma base</h2>
+              </div>
+              <span class="quiet-chip">R$ nominais</span>
+            </div>
+            <div id="annualChart" class="annual-chart"></div>
+            <p class="fine-print">
+              Clique em um ano para filtrar. Sem registro não equivale a crédito zero no mercado.
+            </p>
+          </article>
+          <article class="finance-panel">
+            <div class="section-heading">
+              <div>
+                <span class="eyebrow">DISTRIBUIÇÃO DO VALOR</span>
+                <h2>Quem aparece na seleção?</h2>
+              </div>
+              <select id="distributionScope" aria-label="Território da distribuição">
+                <option value="PI">Piauí</option>
+                <option value="comparison">Comparação</option>
+              </select>
+            </div>
+            <div class="dimension-tabs" role="group" aria-label="Dimensão da distribuição">
+              <button data-dimension="sector" aria-pressed="true">Setor publicado</button
+              ><button data-dimension="size" aria-pressed="false">Porte publicado</button>
+            </div>
+            <div id="distributionChart"></div>
+            <p class="fine-print">
+              Categorias originais da fonte. Uma operação pode ter mais de um nicho analítico.
+            </p>
+          </article>
+        </section>
+        <section class="interstate-section" id="interstateSection">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">UMA OUTRA FORMA DE ENXERGAR O TERRITÓRIO</span>
+              <h2>O Piauí também aparece em projetos interestaduais</h2>
+            </div>
+            <span class="quiet-chip" id="interstateCount"></span>
+          </div>
+          <p class="section-copy">
+            Há descrições que incluem o Piauí, mas o valor contratado cobre o projeto em vários
+            estados. Sem rateio publicado, esses valores ficam fora dos indicadores financeiros do
+            Piauí.
+          </p>
+          <div class="interstate-cards" id="interstateCards"></div>
+        </section>
+        <section class="finance-panel records-panel">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">DO INDICADOR AO REGISTRO</span>
+              <h2>Explore as evidências</h2>
+            </div>
+            <select id="tableScope" aria-label="Território dos registros">
+              <option value="PI">Registros com UF Piauí</option>
+              <option value="comparison">Registros da comparação</option>
+            </select>
+          </div>
+          <p class="section-copy" id="tableCount"></p>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Cliente / registro</th>
+                  <th>UF / município informado</th>
+                  <th>Contratação</th>
+                  <th>Valor contratado</th>
+                  <th>Nichos analíticos</th>
+                  <th><span class="sr-only">Detalhes</span></th>
+                </tr>
+              </thead>
+              <tbody id="financeTable"></tbody>
+            </table>
+          </div>
+          <div class="pagination">
+            <button id="previousPage">← Anterior</button><span id="pageLabel"></span
+            ><button id="nextPage">Próxima →</button>
+          </div>
+        </section>
+      </div>
+      <section id="fnePane" hidden aria-label="Dados agregados do FNE Verde">
+        <div class="fne-source-caption">
+          <span class="quiet-chip">BANCO DO NORDESTE</span>
+          <p>
+            Todos os setores publicados do FNE Verde. Explore a família por linha de financiamento;
+            as categorias originais de setor e porte aparecem abaixo.
+          </p>
+        </div>
+        <section class="five-metrics" aria-label="Indicadores do FNE Verde" aria-live="polite">
+          <article>
+            <span class="metric-label">CONTRATADO · PIAUÍ</span><strong id="fneTotal">—</strong
+            ><small id="fneTotalNote"></small>
+          </article>
+          <article>
+            <span class="metric-label">LINHAS AGREGADAS · PI</span><strong id="fneCount">—</strong
+            ><small id="fneCountNote"></small>
+          </article>
+          <article>
+            <span class="metric-label">PARTICIPAÇÃO DO PIAUÍ</span><strong id="fneShare">—</strong
+            ><small id="fneShareNote"></small>
+          </article>
+          <article>
+            <span class="metric-label">PORTE COM MAIOR VALOR · PI</span
+            ><strong id="fneSize">—</strong><small id="fneSizeNote"></small>
+          </article>
+          <article>
+            <span class="metric-label">INSTRUMENTOS MAPEADOS</span><strong>3</strong
+            ><small>Catálogo documental · duas bases coletadas</small>
+          </article>
+        </section>
+        <div class="scope-line">
+          <span><i class="status-dot"></i><b id="fneScope"></b></span
+          ><button id="fneMethod">Entenda o recorte ↗</button>
+        </div>
+        <div class="data-notice" id="fneNotice" role="status"></div>
+        <section class="finance-explorer" aria-label="FNE Verde no território">
+          <article class="map-card">
+            <div class="map-heading">
+              <div>
+                <span class="eyebrow">FNE VERDE · CONTRATAÇÕES OBSERVADAS</span>
+                <h2>O financiamento no território</h2>
+                <p>Município publicado pelo BNB · valores nominais agregados</p>
+              </div>
+              <span id="fneMapPeriod" class="map-period"></span>
+            </div>
+            <div id="fneMapCanvas" class="map-canvas finance-map-canvas">
+              <div id="fneMapHint" class="map-hint"></div>
+              <svg
+                id="fneMap"
+                viewBox="0 0 780 650"
+                role="group"
+                aria-label="Mapa interativo do FNE Verde nos 224 municípios"
+              >
+                <g id="fnePolygons"></g>
+              </svg>
+              <div class="north-arrow" aria-hidden="true">
+                <b>N</b
+                ><svg viewBox="0 0 20 34"><path d="m10 1 8 29-8-8-8 8Z" fill="#315042" /></svg>
+              </div>
+              <div class="map-legend" id="fneLegend"></div>
+              <div class="map-controls">
+                <button id="fneZoomIn" aria-label="Aproximar mapa FNE">+</button
+                ><button id="fneZoomOut" aria-label="Afastar mapa FNE">−</button
+                ><button id="fneReset" aria-label="Enquadrar mapa FNE">
+                  <svg class="icon"><use href="#i-reset" /></svg>
+                </button>
+              </div>
+              <span class="map-attribution">Limites IBGE 2024 · malha simplificada</span>
+              <div class="map-tooltip" id="fneTooltip" hidden></div>
+            </div>
+          </article>
+          <aside class="financial-focus">
+            <div class="detail-heading">
+              <span class="eyebrow">TERRITÓRIO EM FOCO</span
+              ><button id="fneState" class="text-button">Visão estadual ↗</button>
+            </div>
+            <div class="search-wrap">
+              <svg class="icon"><use href="#i-search" /></svg
+              ><input
+                id="fneSearch"
+                type="search"
+                placeholder="Buscar município…"
+                autocomplete="off"
+                aria-label="Buscar município no FNE Verde"
+                aria-expanded="false"
+                aria-controls="fneSearchResults">
+              <div class="search-results" id="fneSearchResults" hidden></div>
+            </div>
+            <div id="fneFocus" aria-live="polite"></div>
+          </aside>
+        </section>
+        <section class="finance-charts">
+          <article class="finance-panel">
+            <div class="section-heading">
+              <div>
+                <span class="eyebrow">VALOR CONTRATADO · PI</span>
+                <h2>Uma série com cobertura explícita</h2>
+              </div>
+              <span class="quiet-chip">R$ nominais</span>
+            </div>
+            <div id="fneAnnual" class="annual-chart"></div>
+            <p class="fine-print">
+              2023*: janeiro a setembro. Os demais anos são completos. Clique no ano para filtrar;
+              os períodos não têm a mesma cobertura em 2023.
+            </p>
+          </article>
+          <article class="finance-panel">
+            <div class="section-heading">
+              <div>
+                <span class="eyebrow">DISTRIBUIÇÃO DO VALOR · PI</span>
+                <h2>O perfil publicado pelo BNB</h2>
+              </div>
+            </div>
+            <div class="dimension-tabs" role="group" aria-label="Distribuição do FNE Verde">
+              <button data-fne-dimension="sector" aria-pressed="true">Setor publicado</button
+              ><button data-fne-dimension="size" aria-pressed="false">Porte publicado</button>
+            </div>
+            <div id="fneDistribution"></div>
+            <p class="fine-print">
+              Classificações da fonte. Setor e porte não definem, isoladamente, o nicho do projeto
+              ou a condição de agricultura familiar.
+            </p>
+          </article>
+        </section>
+        <section class="fne-territory-grid">
+          <article class="finance-panel">
+            <div class="section-heading">
+              <div>
+                <span class="eyebrow">DISTRIBUIÇÃO TERRITORIAL · PI</span>
+                <h2>Maiores valores na seleção</h2>
+              </div>
+            </div>
+            <div id="fneRanking"></div>
+            <p class="fine-print">
+              Valores observados na fonte. A ordem não representa prioridade de investimento.
+            </p>
+          </article>
+          <article class="fne-reading">
+            <span class="eyebrow">DO TERRITÓRIO À ARTICULAÇÃO</span>
+            <h2>Mais dados.<br>Melhores perguntas.</h2>
+            <p id="fneReading"></p>
+            <button id="fneInternalLink">Explorar a Visão interna ↗</button>
+            <p class="fine-print">
+              Uma contratação publicada não demonstra que houve participação da Investe.
+            </p>
+          </article>
+        </section>
+        <section class="finance-panel records-panel">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">RASTREABILIDADE DA PLANILHA</span>
+              <h2>Explore as linhas agregadas</h2>
+            </div>
+            <select id="fneTableScope" aria-label="Território da tabela FNE">
+              <option value="PI">Todo o Piauí</option>
+              <option value="city">Município selecionado</option>
+              <option value="comparison">UFs da comparação</option>
+            </select>
+          </div>
+          <p id="fneTableCount" class="section-copy"></p>
+          <div class="table-scroll">
+            <table>
+              <thead id="fneTableHead"></thead>
+              <tbody id="fneTableBody"></tbody>
+            </table>
+          </div>
+          <div class="pagination">
+            <button id="fnePrevious">← Anterior</button><span id="fnePageLabel"></span
+            ><button id="fneNext">Próxima →</button>
+          </div>
+        </section>
+      </section>
+      <section id="internalPane" hidden aria-label="Visão interna da Investe Piauí">
+        <div class="internal-heading">
+          <span class="eyebrow">VISÃO INTERNA · INDICADOR 06</span>
+          <h2>Da demanda ao encaminhamento.</h2>
+          <p>
+            Como acompanhar a articulação de financiamento sustentável nos projetos apoiados pela
+            Investe Piauí.
+          </p>
+        </div>
+        <div class="internal-grid">
+          <article class="internal-indicator">
+            <span class="quiet-chip">DADOS INTERNOS PENDENTES</span>
+            <h3>Taxa de encaminhamento para financiamento sustentável</h3>
+            <strong class="internal-pending">Aguardando dados internos</strong>
+            <p>
+              O indicador depende de registros da Investe. Os campos e a fórmula estão definidos;
+              nenhum valor foi estimado para esta visão.
+            </p>
+            <div class="internal-formula">
+              <div>
+                <b>Projetos da coorte formalmente encaminhados até o corte</b><span>÷</span
+                ><b>Projetos da mesma coorte com demanda registrada</b>
+              </div>
+              <strong>× 100</strong>
+            </div>
+            <p class="fine-print">
+              Coorte: projetos cuja demanda foi registrada entre o início e o fim do período
+              definido. Cada projeto é contado uma vez.
+            </p>
+          </article>
+          <article class="finance-panel">
+            <span class="eyebrow">REGISTROS NECESSÁRIOS</span>
+            <h3>O que precisamos receber</h3>
+            <ol class="internal-fields">
+              <li>
+                <b>Identificação do projeto</b><span>Um identificador único e anonimizado.</span>
+              </li>
+              <li><b>Data da demanda</b><span>Define a entrada do projeto na coorte.</span></li>
+              <li><b>Município e nicho</b><span>Permitem investigar diferentes perfis.</span></li>
+              <li>
+                <b>Encaminhamento formal e data</b
+                ><span>Comprovam o avanço até a data de corte.</span>
+              </li>
+              <li>
+                <b>Motivo de não avanço</b><span>Ajuda a identificar o apoio necessário.</span>
+              </li>
+            </ol>
+          </article>
+        </div>
+        <section class="finance-panel internal-method">
+          <span class="eyebrow">COMO APURAR</span>
+          <div class="internal-steps">
+            <div>
+              <b>01</b>
+              <h3>Definir o período</h3>
+              <p>Estabelecer início e fim da coorte e a data de corte da análise.</p>
+            </div>
+            <div>
+              <b>02</b>
+              <h3>Validar os registros</h3>
+              <p>Conferir identificadores únicos, datas e informação sobre o encaminhamento.</p>
+            </div>
+            <div>
+              <b>03</b>
+              <h3>Acompanhar os avanços</h3>
+              <p>
+                Calcular o percentual da mesma coorte. O encaminhamento é uma etapa distinta da
+                aprovação e do desembolso.
+              </p>
+            </div>
+          </div>
+        </section>
+        <p class="internal-note">
+          O papel da Investe no fluxo, a disponibilidade dos registros e os critérios de
+          encaminhamento precisam ser validados com a instituição.
+        </p>
+      </section>
+
+      <section id="esgPane" hidden aria-labelledby="esgTitle">
+        <div class="esg-heading">
+          <div>
+            <p class="eyebrow">AMBIENTAL · SOCIAL · GOVERNANÇA</p>
+            <h1 id="esgTitle">Pontuação ESG</h1>
+            <p>Acompanhe os resultados e as evidências de cada projeto financiado.</p>
+          </div>
+          <label class="esg-picker"
+            ><span class="field-label">PROJETO EM ANÁLISE</span
+            ><select id="esgSelect">
+              <optgroup label="Cenários simulados">
+                <option value="agro">Empresa A · Agroindústria</option>
+                <option value="energia">Empresa B · Energia renovável</option>
+                <option value="logistica">Empresa C · Logística</option>
+              </optgroup>
+              <optgroup label="Caso real">
+                <option value="brasbio">Brasbio · Uruçuí</option>
+              </optgroup>
+            </select></label
+          >
+        </div>
+        <article class="esg-spotlight" aria-live="polite">
+          <div>
+            <span class="esg-mode" id="esgMode"></span>
+            <h2 id="esgCompany"></h2>
+            <p id="esgProject"></p>
+            <p id="esgCredit"></p>
+            <p id="esgReading"></p>
+            <button
+              type="button"
+              class="text-button"
+              id="esgEvidence"
+              data-record="FC_AUTOMATICAS:383"
+              hidden
+            >
+              Ver registro do Fundo Clima ↗
+            </button>
+          </div>
+          <div class="esg-scorebox">
+            <div class="esg-gauge">
+              <svg viewBox="0 0 240 138" aria-hidden="true">
+                <defs>
+                  <linearGradient id="esgGradient">
+                    <stop stop-color="#bd513f" />
+                    <stop offset=".45" stop-color="#dcab45" />
+                    <stop offset=".72" stop-color="#83a351" />
+                    <stop offset="1" stop-color="#2a7652" />
+                  </linearGradient>
+                </defs>
+                <path
+                  id="esgArc"
+                  d="M26 116 A94 94 0 0 1 214 116"
+                  fill="none"
+                  stroke="url(#esgGradient)"
+                  stroke-width="15"
+                  stroke-linecap="round"
+                />
+                <circle id="esgMarker" r="9" fill="#173d32" stroke="#fff" stroke-width="3" />
+              </svg>
+              <div class="esg-gauge-content">
+                <strong id="esgScore"></strong><span id="esgScale"></span>
+              </div>
+            </div>
+            <p id="esgCoverage"></p>
+          </div>
+        </article>
+        <div id="esgDimensions" class="esg-dimensions"></div>
+        <details class="esg-method">
+          <summary>Como calculamos a nota?</summary>
+          <p>
+            Cada dimensão tem o mesmo peso e reúne dois indicadores. Para as metas demonstradas:
+            <b>0</b> se o resultado registrado for zero, <b>50</b> se houver avanço abaixo da meta e
+            <b>100</b> se a meta for atingida. Um indicador sem evidência fica <b>Não avaliado</b>.
+          </p>
+          <p>
+            A nota geral é a média das três dimensões, arredondada para exibição, e só aparece
+            quando os seis indicadores podem ser avaliados. As metas são próprias de cada projeto. O
+            financiamento comprova contratação; por si só, não pontua governança.
+          </p>
+        </details>
+      </section>
+      <section id="catalogPane" hidden>
+        <div class="catalog-intro">
+          <span class="eyebrow">DA EVIDÊNCIA À ARTICULAÇÃO</span>
+          <h2>Instrumentos para investigar com a Investe</h2>
+          <p>
+            O catálogo reúne finalidade, público e porta de entrada. Enquadramento e disponibilidade
+            precisam ser confirmados com a instituição; estar mapeado não significa crédito
+            aprovado.
+          </p>
+        </div>
+        <div class="catalog-cards" id="catalogCards"></div>
+        <div class="next-layer">
+          <div>
+            <b>Próxima camada: fundos de investimento ESG e impacto</b>
+            <p>
+              Fundo Clima, FNE Verde e Renovagro são instrumentos de crédito. O universo de fundos
+              de investimento ainda está em levantamento.
+            </p>
+          </div>
+        </div>
+      </section>
+      <footer>
+        <span class="footer-theme"
+          ><b>Acesso a financiamento sustentável (fundos ESG/impacto)</b
+          ><small>Agro · energias renováveis · logística</small></span
+        >
+        <div>
+          <a href="offline.html" download="Piaui_Financiamento_Sustentavel.html">Baixar versão offline</a>
+          <button id="financeFooterSources">Fontes e método</button
+          ><span>Protótipo para discussão · nov. 2026</span>
+        </div>
+      </footer>
+    </main>
+    <dialog id="financeSources" class="info-dialog finance-dialog">
+      <div class="dialog-top">
+        <span class="eyebrow">TRANSPARÊNCIA & MÉTODO</span
+        ><button id="closeFinanceSources" class="icon-button" aria-label="Fechar fontes">
+          <svg class="icon"><use href="#i-close" /></svg>
+        </button>
+      </div>
+      <div id="sourcesBody"></div>
+    </dialog>
+    <dialog id="operationDialog" class="info-dialog finance-dialog">
+      <div class="dialog-top">
+        <span class="eyebrow">RASTREABILIDADE DO REGISTRO</span
+        ><button id="closeOperation" class="icon-button" aria-label="Fechar operação">
+          <svg class="icon"><use href="#i-close" /></svg>
+        </button>
+      </div>
+      <div id="operationBody"></div>
+    </dialog>
+    <div
+      class="tour-card"
+      id="financeTour"
+      hidden
+      role="region"
+      aria-label="Roteiro de apresentação"
+    >
+      <button class="tour-close icon-button" id="financeTourClose" aria-label="Encerrar roteiro">
+        <svg class="icon"><use href="#i-close" /></svg></button
+      ><span class="tour-counter" id="financeTourCounter"></span>
+      <h3 id="financeTourTitle"></h3>
+      <p id="financeTourCopy"></p>
+      <div class="tour-bottom">
+        <div class="tour-dots" id="financeTourDots"></div>
+        <button id="financeTourPrevious" class="text-button">Anterior</button
+        ><button id="financeTourNext" class="solid-button">Próxima leitura →</button>
+      </div>
+    </div>
+    <div id="financeToast" class="toast" role="status" hidden></div>
+    <noscript>Ative o JavaScript para explorar os dados.</noscript>
+    <script src="assets/js/bootstrap.js" defer data-page="finance"></script>
+  </body>
+</html>

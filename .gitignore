@@ -1,0 +1,14 @@
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+build/
+.env
+.env.*
+.DS_Store
+.openai/
+instance/
+.coverage
+data/raw/*
+!data/raw/README.md
+data/private/
