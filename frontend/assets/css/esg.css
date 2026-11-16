@@ -2,9 +2,9 @@
   display: none;
 }
 #esgPane {
-  --esg-ink: #173d32;
-  --esg-muted: #51675e;
-  --esg-line: #dce5db;
+  --esg-ink: var(--deep);
+  --esg-muted: var(--muted);
+  --esg-line: var(--line);
   padding: clamp(16px, 3vw, 40px) 0 18px;
 }
 #esgPane [hidden] {
@@ -18,10 +18,11 @@
   margin: 0 0 24px;
 }
 .esg-heading h1 {
-  font:
-    600 clamp(36px, 5vw, 64px)/1.05 Georgia,
-    serif;
-  letter-spacing: -0.045em;
+  font-family: var(--font);
+  font-size: clamp(30px, 2.6vw, 38px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -1px;
   color: var(--esg-ink);
   margin: 7px 0 9px;
 }
@@ -53,8 +54,9 @@
   gap: 18px;
   padding: clamp(18px, 3vw, 34px);
   border: 1px solid var(--esg-line);
-  border-radius: 18px;
-  background: linear-gradient(115deg, #fff 45%, #eef5e9);
+  border-radius: var(--radius);
+  background: var(--white);
+  border-top: 3px solid var(--green);
 }
 .esg-mode {
   display: inline-block;
@@ -62,7 +64,7 @@
   background: #f7e9bc;
   color: #64440b;
   padding: 7px 11px;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.05em;
 }
@@ -125,14 +127,14 @@
   letter-spacing: -0.03em;
 }
 #esgScale {
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 750;
   letter-spacing: 0.11em;
   color: var(--esg-muted);
   margin-top: 4px;
 }
 .esg-scorebox #esgCoverage {
-  font-size: 11px;
+  font-size: 13px;
   margin: 2px 0 0;
   font-weight: 650;
 }
@@ -145,7 +147,7 @@
 .esg-dimension {
   background: #fff;
   border: 1px solid var(--esg-line);
-  border-radius: 14px;
+  border-radius: var(--radius);
   padding: 17px;
   min-width: 0;
 }
@@ -184,7 +186,7 @@
   margin: 0 0 5px;
 }
 .esg-metric p {
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.45;
   color: var(--esg-muted);
   margin: 0 0 8px;
@@ -195,7 +197,7 @@
   padding: 4px 7px;
   background: #edf1ee;
   color: #44594e;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
 }
 .esg-grade[data-grade='100'] {
@@ -249,4 +251,19 @@
     justify-self: center;
     width: 100%;
   }
+}
+
+.esg-mode { font-size: 11px; }
+.esg-spotlight p { font-size: 14px; }
+.esg-dimension { padding: 20px; }
+.esg-metric h4 { font-size: 14px; }
+.esg-metric p { font-size: 13px; line-height: 1.6; }
+.esg-grade { font-size: 12px; }
+.esg-method { font-size: 14px; padding: 16px 20px; background: var(--white); }
+.esg-method summary { min-height: 30px; }
+.esg-picker select { min-height: 44px; }
+@media (max-width: 600px) {
+  .esg-heading { margin-bottom: 18px; }
+  .esg-picker { width: 100%; }
+  .esg-spotlight { padding: 20px; }
 }

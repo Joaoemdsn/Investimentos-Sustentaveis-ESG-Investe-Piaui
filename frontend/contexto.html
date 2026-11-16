@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="theme-color" content="#183f32">
+    <meta name="theme-color" content="#123d32">
     <meta
       name="description"
       content="Explore a produção dos 224 municípios do Piauí, de 2021 a 2025. Um mapa interativo para apoiar a análise territorial.">
@@ -42,13 +42,14 @@
       </defs>
     </svg>
 
+    <a class="skip-link" href="#mainContent">Ir para o conteúdo</a>
     <header class="topbar">
       <a class="brand" href="#" aria-label="Investe Piauí, início"
         ><span class="investe-logo" role="img" aria-label="Investe Piauí"></span
       ></a>
       <nav aria-label="Navegação principal">
         <a href="index.html" class="context-back">Financiamentos</a
-        ><span class="nav-active"
+        ><span class="nav-active" aria-current="page"
           ><svg class="icon"><use href="#i-layers" /></svg>Mapa produtivo</span
         ><button id="insightsButton">Leituras do território</button
         ><button id="aboutButton">Sobre os dados</button>
@@ -66,7 +67,7 @@
       </div>
     </header>
 
-    <main>
+    <main id="mainContent" tabindex="-1">
       <section class="intro" aria-labelledby="pageTitle">
         <div>
           <p class="eyebrow">AGRONEGÓCIO & DESENVOLVIMENTO RURAL</p>

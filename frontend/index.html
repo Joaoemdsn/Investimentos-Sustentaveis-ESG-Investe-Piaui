@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="theme-color" content="#183f32">
+    <meta name="theme-color" content="#123d32">
     <meta
       name="description"
       content="Acesso a financiamento sustentável no Piauí: agro, energias renováveis e logística. Evidências públicas de 2021 a 2025.">
@@ -32,6 +32,7 @@
         <symbol id="i-reset" viewBox="0 0 24 24"><path d="M4 9a8 8 0 1 1 1 9M4 3v6h6" /></symbol>
       </defs>
     </svg>
+    <a class="skip-link" href="#mainContent">Ir para o conteúdo</a>
     <header class="topbar">
       <a class="brand" href="index.html" aria-label="Investe Piauí, início"
         ><span class="investe-logo" role="img" aria-label="Investe Piauí"></span
@@ -55,11 +56,11 @@
         </button>
       </div>
     </header>
-    <main>
-      <section class="intro">
+    <main id="mainContent" tabindex="-1">
+      <section class="intro" aria-labelledby="financeTitle">
         <div>
           <p class="eyebrow">AGRO · ENERGIAS RENOVÁVEIS · LOGÍSTICA</p>
-          <h1>Financiamento em foco.<br><em>Oportunidades com evidência.</em></h1>
+          <h1 id="financeTitle">Financiamento Sustentável <em>no Piauí</em></h1>
           <p class="intro-copy">
             Onde o financiamento chega — e o que precisamos conhecer para ampliar o acesso no Piauí?
           </p>
@@ -107,6 +108,15 @@
             <option value="BR">Brasil</option>
           </select></label
         >
+        <label id="fneLineControl" class="fne-line-control" hidden
+          ><span class="field-label">LINHA DE FINANCIAMENTO</span
+          ><select id="fneLine">
+            <option value="todos">Todas as linhas</option>
+            <option>FNE Verde: demais linhas</option>
+            <option>FNE Verde MPE</option>
+            <option>FNE Verde Sol PF</option>
+          </select></label
+        >
         <div class="export-wrap">
           <button
             class="export-button"
@@ -124,15 +134,6 @@
           </div>
         </div>
       </section>
-      <label id="fneLineControl" class="fne-line-control" hidden
-        ><span class="field-label">LINHA DE FINANCIAMENTO · FNE VERDE</span
-        ><select id="fneLine">
-          <option value="todos">Todas as linhas</option>
-          <option>FNE Verde: demais linhas</option>
-          <option>FNE Verde MPE</option>
-          <option>FNE Verde Sol PF</option>
-        </select></label
-      >
       <section class="five-metrics" aria-label="Cinco indicadores" aria-live="polite">
         <article>
           <span class="metric-label">CONTRATADO · UF PIAUÍ</span><strong id="financeTotal">—</strong
@@ -291,7 +292,7 @@
             </select>
           </div>
           <p class="section-copy" id="tableCount"></p>
-          <div class="table-scroll">
+          <div class="table-scroll" tabindex="0" role="region" aria-label="Tabela de registros — role para ver todas as colunas">
             <table>
               <thead>
                 <tr>
@@ -472,7 +473,7 @@
             </select>
           </div>
           <p id="fneTableCount" class="section-copy"></p>
-          <div class="table-scroll">
+          <div class="table-scroll" tabindex="0" role="region" aria-label="Tabela de registros — role para ver todas as colunas">
             <table>
               <thead id="fneTableHead"></thead>
               <tbody id="fneTableBody"></tbody>
