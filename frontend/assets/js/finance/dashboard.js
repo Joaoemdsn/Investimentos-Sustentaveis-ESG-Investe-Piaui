@@ -21,6 +21,7 @@
     comparator: 'NE',
     city: '2211209',
     pane: 'overview',
+    view: 'overview',
     dimension: 'sector',
     distributionScope: 'PI',
     tableScope: 'PI',
@@ -120,10 +121,15 @@
     const fne = state.instrument === 'FNE_VERDE',
       internal = state.pane === 'internal',
       esg = state.pane === 'esg',
-      hideFinance = internal || esg;
+      hideFinance = state.pane !== 'overview';
     document.body.classList.toggle('fne-active', fne);
     document.body.classList.toggle('internal-active', internal);
     document.body.classList.toggle('esg-active', esg);
+    document.body.classList.toggle('catalog-active', state.pane === 'catalog');
+    $('fneSummary').hidden = !fne || hideFinance;
+    $('financeNotice').hidden = fne || hideFinance;
+    $('financeWorkspaceToolbar').hidden = hideFinance;
+    document.querySelector('main > .intro').hidden = hideFinance;
     document.querySelector('.sector-tabs').hidden = fne || hideFinance;
     document.querySelector('.finance-filters').hidden = hideFinance;
     document.querySelector('main > .five-metrics').hidden = fne || hideFinance;
@@ -140,6 +146,54 @@
     $('instrumentFilter').value = state.instrument;
     $('yearFilter').value = state.year;
     $('comparisonFilter').value = state.comparator;
+    syncWorkspaceView();
+  }
+  function syncWorkspaceView() {
+    const fne = state.instrument === 'FNE_VERDE';
+    const activePane = $(fne ? 'fnePane' : 'overviewPane');
+    for (const panel of document.querySelectorAll('[data-finance-view]')) {
+      panel.hidden = panel.dataset.financeView !== state.view;
+    }
+    for (const tab of document.querySelectorAll('[data-workspace-view]')) {
+      const selected = tab.dataset.workspaceView === state.view;
+      const panel = activePane.querySelector(`[data-finance-view="${tab.dataset.workspaceView}"]`);
+      tab.setAttribute('aria-selected', String(selected));
+      tab.tabIndex = selected ? 0 : -1;
+      tab.setAttribute('aria-controls', panel.id);
+    }
+    $('viewTerritory').textContent = fne ? 'Território' : 'Projetos interestaduais';
+  }
+  function setWorkspaceView(view) {
+    state.view = view;
+    syncWorkspaceView();
+    urlState();
+  }
+  for (const tablist of document.querySelectorAll('.workspace-tabs')) {
+    tablist.addEventListener('click', event => {
+      const tab = event.target.closest('[role="tab"]');
+      if (!tab) return;
+      if (tab.dataset.workspaceView) {
+        setWorkspaceView(tab.dataset.workspaceView);
+      } else {
+        for (const button of tablist.querySelectorAll('[role="tab"]')) {
+          const selected = button === tab;
+          button.setAttribute('aria-selected', String(selected));
+          button.tabIndex = selected ? 0 : -1;
+          $(button.dataset.localPanel).hidden = !selected;
+        }
+      }
+    });
+    tablist.addEventListener('keydown', event => {
+      if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+      const tabs = [...tablist.querySelectorAll('[role="tab"]')];
+      const index = tabs.indexOf(document.activeElement);
+      if (index === -1) return;
+      const next = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1
+        : (index + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+      event.preventDefault();
+      tabs[next].click();
+      tabs[next].focus();
+    });
   }
   function setPane(p) {
     state.pane = p;
@@ -166,6 +220,7 @@
     for (const k of ['sector', 'instrument', 'year', 'size', 'comparator', 'city'])
       p.set(k, state[k]);
     if (state.pane !== 'overview') p.set('pane', state.pane);
+    if (state.view !== 'overview') p.set('view', state.view);
     if (state.instrument === 'FNE_VERDE') {
       const v = window.FNE_VIEW.getState();
       if (v.line !== 'todos') p.set('line', v.line);
@@ -331,13 +386,24 @@
       }
     }
     $('financeFocus').innerHTML = html;
-    $('focusCompare')?.addEventListener('click', () => {
-      state.tableScope = 'comparison';
-      $('tableScope').value = 'comparison';
-      state.page = 0;
-      renderTable(filtered());
-      $('financeTable').closest('section').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
+    compactFocus($('financeFocus'), html);
+  }
+  function compactFocus(container, html) {
+    for (const block of container.querySelectorAll('.case-block')) block.remove();
+    const value = container.querySelector('.focus-value').textContent;
+    if (['Em coleta', 'Sem registro', 'Sem linha'].includes(value)) {
+      container.querySelector('.focus-caption').textContent = value === 'Em coleta'
+        ? 'Operações ainda não coletadas nesta base.'
+        : 'Nenhum registro localizado nesta seleção.';
+    }
+    const details = document.createElement('button');
+    details.className = 'territory-details';
+    details.textContent = 'Ver detalhes e evidências';
+    details.onclick = () => {
+      $('sourcesBody').innerHTML = html;
+      $('financeSources').showModal();
+    };
+    container.append(details);
   }
   function renderAnnual() {
     const pi = piRows(filtered(true)),
@@ -397,19 +463,24 @@
             ? 'Nenhuma menção ao Piauí em registros de outras UFs / IE para estes filtros. A busca se restringe às descrições publicadas.'
             : 'A identificação de projetos depende da coleta das operações.'
         );
+    for (const card of $('interstateCards').querySelectorAll('.interstate-card')) {
+      card.querySelector('p:not(.allocation-note)').remove();
+      card.querySelector('.allocation-note').innerHTML = '<b>Parcela do Piauí não informada.</b>';
+    }
   }
   function renderTable(rs) {
+    const pageSize = tablePageSize('financeTable', 80);
     const data = (state.tableScope === 'PI' ? piRows(rs) : compared(rs))
         .slice()
         .sort((a, b) => b.date.localeCompare(a.date) || b.cents - a.cents),
-      pages = Math.max(Math.ceil(data.length / 8), 1);
+      pages = Math.max(Math.ceil(data.length / pageSize), 1);
     state.page = Math.min(state.page, pages - 1);
     $('tableCount').textContent = data.length
       ? `${data.length} linha${data.length === 1 ? '' : 's'} · ${countsText(data)} · ${state.tableScope === 'PI' ? 'UF Piauí' : comparator()}. Contratos diretos podem ter vários subcréditos.`
       : noData();
     $('financeTable').innerHTML = data.length
       ? data
-          .slice(state.page * 8, state.page * 8 + 8)
+          .slice(state.page * pageSize, state.page * pageSize + pageSize)
           .map(
             r =>
               `<tr><td><b>${esc(r.client)}</b><small>${esc(r.id)} · ${r.grain === 'subcredito' ? 'subcrédito' : 'registro automático'}</small></td><td>${esc(r.uf)}<small>${esc(r.city || 'Município não informado')}</small></td><td>${date(r.date)}</td><td>${money(r.cents)}</td><td>${tags(r)}</td><td><button class="row-details" data-record="${esc(r.id)}" aria-label="Ver registro ${esc(r.id)}">Ver ↗</button></td></tr>`
@@ -419,6 +490,12 @@
     $('pageLabel').textContent = `${state.page + 1} / ${pages}`;
     $('previousPage').disabled = state.page === 0;
     $('nextPage').disabled = state.page >= pages - 1;
+  }
+  function tablePageSize(id, rowHeight = 64) {
+    if (!matchMedia('(min-width: 1101px) and (min-height: 700px)').matches) return 8;
+    const scroll = $(id).closest('.table-scroll');
+    const header = scroll.querySelector('thead').getBoundingClientRect().height || 40;
+    return Math.max(1, Math.min(8, Math.floor(((scroll.clientHeight || 200) - header - 4) / rowHeight)));
   }
   function renderCatalog() {
     const cs = D.catalog.filter(
@@ -433,6 +510,24 @@
           `<article class="catalog-card"><span class="eyebrow">${esc(c.institution)}</span><h3>${esc(c.name)}</h3><p>${esc(c.type)}</p><span class="catalog-status ${c.hasData ? '' : 'pending'}">${c.id === 'FNE_VERDE' ? 'Linhas coletadas · 2023 parcial' : c.hasData ? 'Operações coletadas · 2021–2025' : 'Série do PI ainda não validada'}${c.id === 'RENOVAGRO' ? ' · vigência a confirmar' : ''}</span>${tags(c)}<dl><dt>Finalidade</dt><dd>${esc(c.purpose)}</dd><dt>Público a verificar</dt><dd>${esc(c.audience)}</dd><dt>Porta de entrada</dt><dd>${esc(c.entry)}</dd><dt>Requisitos a verificar</dt><dd>${esc(c.requirements)}</dd></dl>${c.id === 'RENOVAGRO' ? '<p>A página consultada contém aviso de expiração e prazo de vigência até 30/06/2027. Confirmar a condição vigente com a instituição.</p>' : '<p>Condições e disponibilidade na data do projeto precisam ser confirmadas.</p>'}${c.id === 'FNE_VERDE' ? '<p>Dados agregados por município, setor e porte. MPE, Sol PF e demais linhas separados. 2023: janeiro a setembro.</p>' : ''}${link(c.url, 'Consultar fonte oficial')}<br><button class="solid-button" data-instrument="${c.id}">${c.hasData ? 'Explorar operações' : 'Ver situação da coleta'} →</button></article>`
       )
       .join('');
+    for (const card of $('catalogCards').children) {
+      const full = card.innerHTML;
+      const description = card.querySelector('p');
+      const explore = card.querySelector('[data-instrument]');
+      for (const element of [...card.children]) {
+        if (element.tagName === 'DL' || (element.tagName === 'P' && element !== description)
+            || element.tagName === 'A' || element.tagName === 'BR') element.remove();
+      }
+      const details = document.createElement('button');
+      details.className = 'territory-details';
+      details.textContent = 'Finalidade, público e requisitos';
+      details.onclick = () => {
+        $('sourcesBody').innerHTML = full;
+        $('financeSources').showModal();
+      };
+      card.insertBefore(details, explore);
+      explore.textContent = explore.textContent.replace(' →', '');
+    }
   }
   function openRecord(id) {
     const r = D.rows.find(x => x.id === id);
@@ -628,7 +723,8 @@
       size: 'todos',
       sector: tour === 1 ? 'energia' : 'todos',
       city: '2211209',
-      pane: tour === 2 ? 'internal' : 'overview'
+      pane: tour === 2 ? 'internal' : 'overview',
+      view: tour === 1 ? 'territory' : 'overview'
     });
     if (tour === 0) window.FNE_VIEW.resetFocus();
     if (tour === 1) {
@@ -645,12 +741,7 @@
       .join('');
     $('financeTourPrevious').disabled = tour === 0;
     $('financeTourNext').textContent = tour === 2 ? 'Concluir roteiro' : 'Próxima leitura →';
-    (tour === 1
-      ? $('interstateSection')
-      : tour === 2
-        ? $('internalPane')
-        : $('fneMapCanvas').closest('section')
-    ).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (tour === 2) $('internalIndicatorViewTab').click();
   }
   function closeTour() {
     tour = -1;
@@ -672,6 +763,8 @@
     if (['NE', 'BR'].includes(p.get('comparator'))) state.comparator = p.get('comparator');
     if (D.cities.some(c => c.id === p.get('city'))) state.city = p.get('city');
     if (['internal', 'catalog', 'esg'].includes(p.get('pane'))) state.pane = p.get('pane');
+    if (['overview', 'charts', 'territory', 'records'].includes(p.get('view')))
+      state.view = p.get('view');
     window.FNE_VIEW.restore(p);
   } catch {}
   for (const [id, key] of [
@@ -706,6 +799,7 @@
     }
     if (b.dataset.export) exportSelection(b.dataset.export);
     if (b.dataset.instrument) {
+      if ($('financeSources').open) $('financeSources').close();
       state.instrument = b.dataset.instrument;
       state.pane = 'overview';
       state.page = 0;
@@ -724,9 +818,18 @@
     renderCatalog();
     setPane('catalog');
   };
-  for (const id of ['navSources', 'scopeMethod', 'financeFooterSources'])
+  for (const id of ['navSources', 'scopeMethod', 'financeFooterSources', 'workspaceMethod'])
     $(id).onclick = openSources;
   $('closeFinanceSources').onclick = () => $('financeSources').close();
+  $('sourcesBody').addEventListener('click', event => {
+    if (!event.target.closest('#focusCompare')) return;
+    $('financeSources').close();
+    state.tableScope = 'comparison';
+    $('tableScope').value = 'comparison';
+    state.page = 0;
+    renderTable(filtered());
+    setWorkspaceView('records');
+  });
   $('closeOperation').onclick = () => $('operationDialog').close();
   for (const id of ['financeSources', 'operationDialog'])
     $(id).addEventListener('click', e => {
@@ -905,10 +1008,21 @@
       render();
     },
     internal: () => setPane('internal'),
+    overview: () => setWorkspaceView('overview'),
     csv: downloadCsv,
     toast,
+    compactFocus,
+    pageSize: tablePageSize,
     sync: urlState
   });
   initMap();
   render();
+  const tableResize = new ResizeObserver(() => {
+    if (state.pane !== 'overview' || state.view !== 'records') return;
+    if (state.instrument === 'FNE_VERDE') window.FNE_VIEW.refreshTable();
+    else renderTable(filtered());
+  });
+  for (const table of document.querySelectorAll('.records-panel .table-scroll')) {
+    tableResize.observe(table);
+  }
 })();

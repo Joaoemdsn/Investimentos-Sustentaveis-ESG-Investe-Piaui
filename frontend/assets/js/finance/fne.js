@@ -135,7 +135,10 @@
         dimension = b.dataset.fneDimension;
         renderDistribution();
       }
-      if (b.dataset.fneCity) choose(b.dataset.fneCity);
+      if (b.dataset.fneCity) {
+        choose(b.dataset.fneCity);
+        bridge.overview();
+      }
       if (b.dataset.fneRecord) openRecord(b.dataset.fneRecord);
     });
     $('fneSearch').addEventListener('input', e => {
@@ -324,6 +327,7 @@
       html +=
         '<div class="case-block"><h3>O que investigar neste território?</h3><p>Há projetos em preparação e demanda por apoio? Essas informações dependem de registros locais e validação com a Investe.</p></div>';
     $('fneFocus').innerHTML = html;
+    bridge.compactFocus($('fneFocus'), html);
   }
   function renderAnnual() {
     const all = M.select(D, 'todos', line).pi,
@@ -370,11 +374,12 @@
       ' municípios têm linhas nesta seleção. O próximo passo é comparar esses registros com os projetos acompanhados pela Investe e entender quais demandas avançam até um financiador.';
   }
   function renderTable() {
+    const pageSize = bridge.pageSize('fneTableBody');
     const comparisonView = scope === 'comparison';
     const rows = (comparisonView ? stats.comp : scope === 'city' ? cityRows() : stats.pi)
       .slice()
       .sort((a, b) => b.cents - a.cents || b.year - a.year);
-    const pages = Math.max(1, Math.ceil(rows.length / 8));
+    const pages = Math.max(1, Math.ceil(rows.length / pageSize));
     page = Math.max(0, Math.min(page, pages - 1));
     $('fneTableHead').innerHTML = comparisonView
       ? '<tr><th>UF / ano</th><th>Programa publicado</th><th>Linhas na fonte</th><th>QTD BNB</th><th>Contratado</th><th>Fonte</th></tr>'
@@ -393,7 +398,7 @@
             '. QTD BNB preservada com quatro casas; não equivale a contratos distintos.';
     $('fneTableBody').innerHTML = rows.length
       ? rows
-          .slice(page * 8, page * 8 + 8)
+          .slice(page * pageSize, page * pageSize + pageSize)
           .map(r =>
             comparisonView
               ? `<tr><td><b>${esc(r.uf)}</b><small>${r.year}${r.year === 2023 ? ' · jan–set' : ''}</small></td><td>${esc(r.program)}</td><td>${r.lines}</td><td>${qty(r.qUnits)}</td><td>${money(r.cents)}</td><td>${link(D.sources[r.source].url, r.source)}</td></tr>`
@@ -541,6 +546,7 @@
     render,
     openSources,
     export: exportSelection,
+    refreshTable: renderTable,
     getState() {
       return { line, city };
     },

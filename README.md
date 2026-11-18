@@ -30,6 +30,8 @@ Abra **http://127.0.0.1:8000**. Interrompa com `Ctrl+C`. Não é preciso Node, c
 
 Os comandos abaixo usam `python` como abreviação do Python do ambiente virtual. No Windows, também pode usar `.venv\Scripts\python`; no Linux/macOS, `.venv/bin/python`.
 
+O dashboard organiza o financiamento nas abas **Visão geral**, **Evolução e perfil**, **Território / Projetos interestaduais** e **Registros**, mantendo os filtros ao alternar entre elas. Em computadores, a área de análise se ajusta à altura da janela e a tabela adapta a quantidade de linhas por página. Detalhes dos municípios, evidências e requisitos dos instrumentos abrem em janelas. Visão interna e ESG também têm abas próprias. Em celulares, janelas pequenas ou com zoom, o conteúdo permite rolagem para preservar a leitura. Essa navegação funciona nas versões com API, estática e offline.
+
 ## Camadas do projeto
 
 | Pasta / arquivo | Responsabilidade |

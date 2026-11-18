@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="assets/css/base.css">
     <link rel="stylesheet" href="assets/css/dashboard.css">
     <link rel="stylesheet" href="assets/css/esg.css">
+    <link rel="stylesheet" href="assets/css/workspace.css">
   </head>
   <body class="finance-page">
     <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -56,20 +57,19 @@
         </button>
       </div>
     </header>
-    <main id="mainContent" tabindex="-1">
+    <main id="mainContent" tabindex="-1" class="dashboard-workspace">
       <section class="intro" aria-labelledby="financeTitle">
         <div>
-          <p class="eyebrow">AGRO · ENERGIAS RENOVÁVEIS · LOGÍSTICA</p>
+          <p class="eyebrow">PAINEL DE INVESTIMENTOS · INVESTE PIAUÍ</p>
           <h1 id="financeTitle">Financiamento Sustentável <em>no Piauí</em></h1>
           <p class="intro-copy">
-            Onde o financiamento chega — e o que precisamos conhecer para ampliar o acesso no Piauí?
+            Explore o acesso ao crédito, os territórios e as evidências.
           </p>
         </div>
         <button class="tour-start" id="financeTourButton">
           <span class="play-round"
             ><svg class="icon"><use href="#i-play" /></svg></span
-          ><span>Apresentar os achados<small>Três leituras para a conversa</small></span
-          ><svg class="icon"><use href="#i-arrow" /></svg>
+          ><span>Apresentar os achados<small>Três leituras para a conversa</small></span>
         </button>
       </section>
       <div class="sector-tabs" role="group" aria-label="Nicho de análise">
@@ -161,9 +161,47 @@
         <span><i class="status-dot"></i><b id="scopeLine"></b></span
         ><button id="scopeMethod">Entenda o recorte ↗</button>
       </div>
+      <div id="fneSummary" hidden>
+        <section class="five-metrics" aria-label="Indicadores do FNE Verde" aria-live="polite">
+          <article>
+            <span class="metric-label">CONTRATADO · PIAUÍ</span><strong id="fneTotal">—</strong
+            ><small id="fneTotalNote"></small>
+          </article>
+          <article>
+            <span class="metric-label">LINHAS AGREGADAS · PI</span><strong id="fneCount">—</strong
+            ><small id="fneCountNote"></small>
+          </article>
+          <article>
+            <span class="metric-label">PARTICIPAÇÃO DO PIAUÍ</span><strong id="fneShare">—</strong
+            ><small id="fneShareNote"></small>
+          </article>
+          <article>
+            <span class="metric-label">PORTE COM MAIOR VALOR · PI</span
+            ><strong id="fneSize">—</strong><small id="fneSizeNote"></small>
+          </article>
+          <article>
+            <span class="metric-label">INSTRUMENTOS MAPEADOS</span><strong>3</strong
+          ><small>Duas bases coletadas</small>
+          </article>
+        </section>
+        <div class="scope-line">
+          <span><i class="status-dot"></i><b id="fneScope"></b></span
+          ><button id="fneMethod">Entenda o recorte ↗</button>
+        </div>
+        <div class="data-notice" id="fneNotice" role="status"></div>
+      </div>
+      <div class="data-notice" id="financeNotice" role="status"></div>
+      <div class="workspace-toolbar" id="financeWorkspaceToolbar">
+        <div class="workspace-tabs" role="tablist" aria-label="Visualização do financiamento">
+          <button id="viewOverview" role="tab" data-workspace-view="overview" aria-selected="true" aria-controls="fneViewOverview">Visão geral</button>
+          <button id="viewCharts" role="tab" data-workspace-view="charts" aria-selected="false" tabindex="-1" aria-controls="fneViewCharts">Evolução e perfil</button>
+          <button id="viewTerritory" role="tab" data-workspace-view="territory" aria-selected="false" tabindex="-1" aria-controls="fneViewTerritory">Território</button>
+          <button id="viewRecords" role="tab" data-workspace-view="records" aria-selected="false" tabindex="-1" aria-controls="fneViewRecords">Registros</button>
+        </div>
+        <button class="workspace-method" id="workspaceMethod">Sobre esta base</button>
+      </div>
       <div id="overviewPane">
-        <div class="data-notice" id="financeNotice" role="status"></div>
-        <section class="finance-explorer" aria-label="Financiamento no território">
+        <section class="finance-explorer workspace-panel" aria-label="Financiamento no território" id="climateViewOverview" data-finance-view="overview" role="tabpanel" aria-labelledby="viewOverview" tabindex="0">
           <article class="map-card">
             <div class="map-heading">
               <div>
@@ -230,7 +268,7 @@
             <div id="financeFocus" aria-live="polite"></div>
           </aside>
         </section>
-        <section class="finance-charts">
+        <section class="finance-charts workspace-panel" id="climateViewCharts" data-finance-view="charts" role="tabpanel" aria-labelledby="viewCharts" tabindex="0" hidden>
           <article class="finance-panel">
             <div class="section-heading">
               <div>
@@ -265,7 +303,7 @@
             </p>
           </article>
         </section>
-        <section class="interstate-section" id="interstateSection">
+        <section class="interstate-section workspace-panel" id="interstateSection" data-finance-view="territory" role="tabpanel" aria-labelledby="viewTerritory" tabindex="0" hidden>
           <div class="section-heading">
             <div>
               <span class="eyebrow">UMA OUTRA FORMA DE ENXERGAR O TERRITÓRIO</span>
@@ -280,7 +318,7 @@
           </p>
           <div class="interstate-cards" id="interstateCards"></div>
         </section>
-        <section class="finance-panel records-panel">
+        <section class="finance-panel records-panel workspace-panel" id="climateViewRecords" data-finance-view="records" role="tabpanel" aria-labelledby="viewRecords" tabindex="0" hidden>
           <div class="section-heading">
             <div>
               <span class="eyebrow">DO INDICADOR AO REGISTRO</span>
@@ -308,47 +346,13 @@
             </table>
           </div>
           <div class="pagination">
-            <button id="previousPage">← Anterior</button><span id="pageLabel"></span
-            ><button id="nextPage">Próxima →</button>
+            <button id="previousPage">Anterior</button><span id="pageLabel"></span
+            ><button id="nextPage">Próxima</button>
           </div>
         </section>
       </div>
       <section id="fnePane" hidden aria-label="Dados agregados do FNE Verde">
-        <div class="fne-source-caption">
-          <span class="quiet-chip">BANCO DO NORDESTE</span>
-          <p>
-            Todos os setores publicados do FNE Verde. Explore a família por linha de financiamento;
-            as categorias originais de setor e porte aparecem abaixo.
-          </p>
-        </div>
-        <section class="five-metrics" aria-label="Indicadores do FNE Verde" aria-live="polite">
-          <article>
-            <span class="metric-label">CONTRATADO · PIAUÍ</span><strong id="fneTotal">—</strong
-            ><small id="fneTotalNote"></small>
-          </article>
-          <article>
-            <span class="metric-label">LINHAS AGREGADAS · PI</span><strong id="fneCount">—</strong
-            ><small id="fneCountNote"></small>
-          </article>
-          <article>
-            <span class="metric-label">PARTICIPAÇÃO DO PIAUÍ</span><strong id="fneShare">—</strong
-            ><small id="fneShareNote"></small>
-          </article>
-          <article>
-            <span class="metric-label">PORTE COM MAIOR VALOR · PI</span
-            ><strong id="fneSize">—</strong><small id="fneSizeNote"></small>
-          </article>
-          <article>
-            <span class="metric-label">INSTRUMENTOS MAPEADOS</span><strong>3</strong
-            ><small>Catálogo documental · duas bases coletadas</small>
-          </article>
-        </section>
-        <div class="scope-line">
-          <span><i class="status-dot"></i><b id="fneScope"></b></span
-          ><button id="fneMethod">Entenda o recorte ↗</button>
-        </div>
-        <div class="data-notice" id="fneNotice" role="status"></div>
-        <section class="finance-explorer" aria-label="FNE Verde no território">
+        <section class="finance-explorer workspace-panel" aria-label="FNE Verde no território" id="fneViewOverview" data-finance-view="overview" role="tabpanel" aria-labelledby="viewOverview" tabindex="0">
           <article class="map-card">
             <div class="map-heading">
               <div>
@@ -404,7 +408,7 @@
             <div id="fneFocus" aria-live="polite"></div>
           </aside>
         </section>
-        <section class="finance-charts">
+        <section class="finance-charts workspace-panel" id="fneViewCharts" data-finance-view="charts" role="tabpanel" aria-labelledby="viewCharts" tabindex="0" hidden>
           <article class="finance-panel">
             <div class="section-heading">
               <div>
@@ -437,7 +441,7 @@
             </p>
           </article>
         </section>
-        <section class="fne-territory-grid">
+        <section class="fne-territory-grid workspace-panel" id="fneViewTerritory" data-finance-view="territory" role="tabpanel" aria-labelledby="viewTerritory" tabindex="0" hidden>
           <article class="finance-panel">
             <div class="section-heading">
               <div>
@@ -451,6 +455,14 @@
             </p>
           </article>
           <article class="fne-reading">
+        <div class="fne-source-caption">
+          <span class="quiet-chip">BANCO DO NORDESTE</span>
+          <p>
+            Todos os setores publicados do FNE Verde. Explore a família por linha de financiamento;
+            consulte as categorias originais de setor e porte na aba Evolução e perfil.
+          </p>
+        </div>
+
             <span class="eyebrow">DO TERRITÓRIO À ARTICULAÇÃO</span>
             <h2>Mais dados.<br>Melhores perguntas.</h2>
             <p id="fneReading"></p>
@@ -460,7 +472,7 @@
             </p>
           </article>
         </section>
-        <section class="finance-panel records-panel">
+        <section class="finance-panel records-panel workspace-panel" id="fneViewRecords" data-finance-view="records" role="tabpanel" aria-labelledby="viewRecords" tabindex="0" hidden>
           <div class="section-heading">
             <div>
               <span class="eyebrow">RASTREABILIDADE DA PLANILHA</span>
@@ -480,8 +492,8 @@
             </table>
           </div>
           <div class="pagination">
-            <button id="fnePrevious">← Anterior</button><span id="fnePageLabel"></span
-            ><button id="fneNext">Próxima →</button>
+            <button id="fnePrevious">Anterior</button><span id="fnePageLabel"></span
+            ><button id="fneNext">Próxima</button>
           </div>
         </section>
       </section>
@@ -494,7 +506,11 @@
             Investe Piauí.
           </p>
         </div>
-        <div class="internal-grid">
+        <div class="workspace-tabs" role="tablist" aria-label="Visão interna">
+          <button id="internalIndicatorViewTab" role="tab" aria-controls="internalIndicatorView" aria-selected="true" tabindex="0" data-local-panel="internalIndicatorView">Indicador e registros</button>
+          <button id="internalMethodViewTab" role="tab" aria-controls="internalMethodView" aria-selected="false" tabindex="-1" data-local-panel="internalMethodView">Como apurar</button>
+        </div>
+        <div id="internalIndicatorView" class="internal-grid workspace-panel" role="tabpanel" aria-labelledby="internalIndicatorViewTab" tabindex="0">
           <article class="internal-indicator">
             <span class="quiet-chip">DADOS INTERNOS PENDENTES</span>
             <h3>Taxa de encaminhamento para financiamento sustentável</h3>
@@ -534,7 +550,7 @@
             </ol>
           </article>
         </div>
-        <section class="finance-panel internal-method">
+        <section id="internalMethodView" class="finance-panel internal-method workspace-panel" role="tabpanel" aria-labelledby="internalMethodViewTab" tabindex="0" hidden>
           <span class="eyebrow">COMO APURAR</span>
           <div class="internal-steps">
             <div>
@@ -584,7 +600,12 @@
             </select></label
           >
         </div>
-        <article class="esg-spotlight" aria-live="polite">
+        <div class="workspace-tabs" role="tablist" aria-label="Pontuação ESG">
+          <button id="esgProjectViewTab" role="tab" aria-controls="esgProjectView" aria-selected="true" tabindex="0" data-local-panel="esgProjectView">Visão do projeto</button>
+          <button id="esgIndicatorsViewTab" role="tab" aria-controls="esgIndicatorsView" aria-selected="false" tabindex="-1" data-local-panel="esgIndicatorsView">Indicadores e evidências</button>
+          <button id="esgMethodViewTab" role="tab" aria-controls="esgMethodView" aria-selected="false" tabindex="-1" data-local-panel="esgMethodView">Como calculamos</button>
+        </div>
+        <article id="esgProjectView" role="tabpanel" aria-labelledby="esgProjectViewTab" tabindex="0" class="workspace-panel esg-spotlight" aria-live="polite">
           <div>
             <span class="esg-mode" id="esgMode"></span>
             <h2 id="esgCompany"></h2>
@@ -629,8 +650,8 @@
             <p id="esgCoverage"></p>
           </div>
         </article>
-        <div id="esgDimensions" class="esg-dimensions"></div>
-        <details class="esg-method">
+        <div id="esgIndicatorsView" role="tabpanel" aria-labelledby="esgIndicatorsViewTab" tabindex="0" class="workspace-panel" hidden><div id="esgDimensions" class="esg-dimensions"></div></div>
+        <div id="esgMethodView" role="tabpanel" aria-labelledby="esgMethodViewTab" tabindex="0" class="workspace-panel" hidden><details class="esg-method" open>
           <summary>Como calculamos a nota?</summary>
           <p>
             Cada dimensão tem o mesmo peso e reúne dois indicadores. Para as metas demonstradas:
@@ -642,7 +663,7 @@
             quando os seis indicadores podem ser avaliados. As metas são próprias de cada projeto. O
             financiamento comprova contratação; por si só, não pontua governança.
           </p>
-        </details>
+        </details></div>
       </section>
       <section id="catalogPane" hidden>
         <div class="catalog-intro">
