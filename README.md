@@ -1,6 +1,6 @@
 # Piauí em Perspectiva
 
-Dashboard de análise de **acesso a financiamento sustentável no Piauí**, desenvolvido no projeto acadêmico iCEV + Investe Piauí, Grupo 7. Integra evidências do FNE Verde e do Fundo Clima, contexto produtivo municipal do IBGE e uma estrutura para acompanhar encaminhamentos internos.
+Dashboard de análise de **acesso a financiamento sustentável no Piauí**, desenvolvido no projeto acadêmico iCEV + Investe Piauí, Grupo 7. Integra evidências do FNE Verde e do Fundo Clima, contexto produtivo municipal do IBGE, um acervo de indicadores ASG/GRI com importação de dados e uma estrutura para acompanhar encaminhamentos internos.
 
 Agro e bioeconomia, energias renováveis e logística de cargas orientam a leitura do Fundo Clima. O FNE preserva os setores e programas publicados pelo BNB. A interface mantém os mapas, filtros, gráficos, detalhes de fonte, exportação e identidade visual do protótipo.
 
@@ -8,12 +8,19 @@ Agro e bioeconomia, energias renováveis e logística de cargas orientam a leitu
 
 ## Executar no computador
 
-Requer **Python 3.12 ou superior**. Extraia o ZIP e abra o terminal na pasta que contém este README.
+Requer **Python 3.12 ou superior** e Git. Baixe o projeto e entre na pasta:
+
+```bash
+git clone https://github.com/Joaoemdsn/Investimentos-Sustentaveis-ESG-Investe-Piaui.git
+cd Investimentos-Sustentaveis-ESG-Investe-Piaui
+```
+
+Sem Git, use **Code → Download ZIP** no GitHub, extraia e abra o terminal na pasta que contém este README.
 
 Windows, PowerShell:
 
 ```powershell
-py -3.12 -m venv .venv
+py -3 -m venv .venv
 .venv\Scripts\python -m pip install -r requirements.txt
 .venv\Scripts\python run.py
 ```
@@ -26,11 +33,17 @@ python3 -m venv .venv
 .venv/bin/python run.py
 ```
 
-Abra **http://127.0.0.1:8000**. Interrompa com `Ctrl+C`. Não é preciso Node, conta em banco de dados ou chave de API. O primeiro carregamento lê os CSVs; as próximas consultas usam cache em memória. Reinicie o servidor após editar os dados.
+Abra **http://127.0.0.1:8000**. Interrompa com `Ctrl+C`. A pasta `.venv` é criada só uma vez; nas próximas vezes, rode apenas a última linha. Não é preciso Node, conta em banco de dados ou chave de API. O primeiro carregamento lê os CSVs; as próximas consultas usam cache em memória. Reinicie o servidor após editar os dados.
+
+**Problemas comuns**
+
+- **"Não foi possível carregar os dados"** ou aba sem conteúdo: outra cópia do servidor pode estar usando a porta 8000. Feche os terminais antigos ou use outra porta: `run.py --port 8010` e abra **http://127.0.0.1:8010**.
+- **Mudanças que não aparecem** depois de atualizar o código: force a atualização do navegador com **Ctrl+Shift+R** (ou **Ctrl+F5**).
+- **`py` não encontrado** no Windows: use `python -m venv .venv` no lugar de `py -3 -m venv .venv`.
 
 Os comandos abaixo usam `python` como abreviação do Python do ambiente virtual. No Windows, também pode usar `.venv\Scripts\python`; no Linux/macOS, `.venv/bin/python`.
 
-O dashboard organiza o financiamento nas abas **Visão geral**, **Evolução e perfil**, **Território / Projetos interestaduais** e **Registros**, mantendo os filtros ao alternar entre elas. Em computadores, a área de análise se ajusta à altura da janela e a tabela adapta a quantidade de linhas por página. Detalhes dos municípios, evidências e requisitos dos instrumentos abrem em janelas. Visão interna e ESG também têm abas próprias. Em celulares, janelas pequenas ou com zoom, o conteúdo permite rolagem para preservar a leitura. Essa navegação funciona nas versões com API, estática e offline.
+O dashboard organiza o financiamento nas abas **Visão geral**, **Evolução e perfil**, **Território / Projetos interestaduais** e **Registros**, mantendo os filtros ao alternar entre elas. Em computadores, a área de análise se ajusta à altura da janela e a tabela adapta a quantidade de linhas por página. Detalhes dos municípios, evidências e requisitos dos instrumentos abrem em janelas. Visão interna, Pontuação ESG e Indicadores ASG também têm abas próprias. Em celulares, janelas pequenas ou com zoom, o conteúdo permite rolagem para preservar a leitura. Essa navegação funciona nas versões com API, estática e offline.
 
 ## Camadas do projeto
 
@@ -87,7 +100,7 @@ Todas as páginas exibem, abaixo do menu, a faixa com o tema do trabalho.
 | Indicadores GRI | 24 | Indicador de referência para monitoramento |
 | Projetos internos | 0 | Aguardando dados da Investe |
 
-Os CSVs são UTF-8, separados por vírgula e com ponto decimal. Abra no Excel por **Dados → De Texto/CSV**, selecionando a codificação e o separador. Campos com listas usam JSON dentro da célula. As unidades e os principais campos estão em [docs/DADOS.md](docs/DADOS.md).
+Os CSVs são UTF-8, separados por vírgula e com ponto decimal. Abra no Excel por **Dados → De Texto/CSV**, selecionando a codificação e o separador. Campos com listas usam JSON dentro da célula. As unidades e os principais campos estão em [docs/DADOS.md](docs/DADOS.md). O modelo de importação da aba Indicadores ASG é diferente: usa **ponto e vírgula** e vírgula decimal, no formato do Excel em português.
 
 Os dados de produção estão em **mil reais**; os CSVs financeiros, em **reais nominais**. O backend trabalha com centavos inteiros e unidades de 1/10.000 para a QTD BNB. Os CSVs não contêm observações fictícias. As simulações ESG existem somente na aba de demonstração. As entradas sintéticas dos testes servem exclusivamente para verificar regras.
 
@@ -116,20 +129,18 @@ Uma opção manual no GitHub Pages é copiar esse conteúdo para a raiz de uma b
 
 **GitHub Pages executa a versão estática; o backend Python precisa de uma hospedagem que execute Python.** Nesse modo, as interações continuam funcionando e os dados são os do momento da geração. Não abra `frontend/index.html` diretamente pelo explorador de arquivos: ele depende da API. Para abrir sem servidor, use o `offline.html` gerado, com dados incorporados.
 
-## Colocar o código no GitHub
-
-Crie um repositório vazio em sua conta. Na pasta extraída:
+## Contribuir pelo GitHub
 
 ```bash
-git init
+git switch -c minha-alteracao
+python scripts/validate_data.py
+python -m unittest discover -s tests -v
 git add .
-git commit -m "Estrutura inicial do Piauí em Perspectiva"
-git branch -M main
-git remote add origin https://github.com/SEU_USUARIO/piaui-em-perspectiva.git
-git push -u origin main
+git commit -m "feat: descreve a alteração"
+git push -u origin minha-alteracao
 ```
 
-Substitua `SEU_USUARIO` e o nome do repositório pela URL real criada. O ZIP não contém credenciais nem histórico Git do ambiente anterior. O workflow incluído verifica o projeto; a publicação no Pages é configurada separadamente.
+Abra um pull request para a `main`. O workflow incluído valida dados, testes e build a cada push; a publicação no Pages é configurada separadamente. Não commite `.venv/`, `build/` nem `data/private/`, que já estão no `.gitignore`.
 
 ## Atualização e visão interna
 
