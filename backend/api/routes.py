@@ -28,7 +28,12 @@ def create_api(repository):
 
     @api.get("/datasets/<name>")
     def dataset(name):
-        methods = {"finance": repository.finance, "fne": repository.fne, "atlas": repository.atlas}
+        methods = {
+            "finance": repository.finance,
+            "fne": repository.fne,
+            "atlas": repository.atlas,
+            "indicators": repository.indicators,
+        }
         if name not in methods:
             return {"error": "Dataset não encontrado."}, 404
         return methods[name]()

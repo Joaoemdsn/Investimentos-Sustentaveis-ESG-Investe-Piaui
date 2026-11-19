@@ -1593,3 +1593,33 @@ main:focus { outline: none; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
 }
+
+/* Work theme, shown below the main menu on every page. */
+.theme-band {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 7px clamp(16px, 2vw, 24px);
+  background: var(--deep);
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.theme-band p { margin: 0; min-width: 0; }
+.theme-band b { font-weight: 650; }
+.theme-label {
+  flex-shrink: 0;
+  padding: 2px 8px;
+  border: 1px solid #3d6b5b;
+  border-radius: 5px;
+  color: #a8cdb8;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
+.theme-niches { margin-left: auto; flex-shrink: 0; color: #c9dfd3; font-size: 13px; }
+@media (max-width: 1450px) { .theme-niches { display: none; } }
+@media (max-width: 600px) {
+  .theme-band { font-size: 13px; align-items: flex-start; }
+  .theme-label { display: none; }
+}

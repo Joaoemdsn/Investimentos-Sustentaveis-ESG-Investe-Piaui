@@ -48,6 +48,7 @@ def offline_html(repository, frontend, page="finance"):
         scripts = [
             ("FINANCE_DATA", repository.finance()),
             ("FNE_DATA", repository.fne()),
+            ("INDICATORS_DATA", repository.indicators()),
             (
                 "INTERNAL_INDICATOR",
                 referral_indicator(repository.internal_projects(), **repository.internal_period()),
@@ -58,6 +59,7 @@ def offline_html(repository, frontend, page="finance"):
             "finance/fne-math.js",
             "finance/fne.js",
             "finance/esg.js",
+            "finance/indicators.js",
             "finance/dashboard.js",
             "finance/internal.js",
         ]

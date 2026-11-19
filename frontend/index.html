@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="assets/css/base.css">
     <link rel="stylesheet" href="assets/css/dashboard.css">
     <link rel="stylesheet" href="assets/css/esg.css">
+    <link rel="stylesheet" href="assets/css/indicators.css">
     <link rel="stylesheet" href="assets/css/workspace.css">
   </head>
   <body class="finance-page">
@@ -41,6 +42,7 @@
       <nav aria-label="Navegação principal">
         <button id="navOverview" class="nav-active" aria-current="page">Financiamentos</button
         ><button id="navInternal">Visão interna</button><button id="navEsg">Pontuação ESG</button
+        ><button id="navIndicators">Indicadores ASG</button
         ><button id="navCatalog">Instrumentos</button
         ><a href="contexto.html" id="contextLink">Contexto produtivo</a
         ><button id="navSources">Fontes e método</button>
@@ -57,6 +59,14 @@
         </button>
       </div>
     </header>
+    <div class="theme-band" role="note" aria-label="Tema do trabalho">
+      <span class="theme-label">TEMA DO TRABALHO</span>
+      <p>
+        <b>Acesso a financiamento sustentável no Piauí</b> · fundos ESG e de impacto para a
+        atração e o acompanhamento de investimentos
+      </p>
+      <span class="theme-niches">Agro &amp; bioeconomia · Energias renováveis · Logística de cargas</span>
+    </div>
     <main id="mainContent" tabindex="-1" class="dashboard-workspace">
       <section class="intro" aria-labelledby="financeTitle">
         <div>
@@ -664,6 +674,58 @@
             financiamento comprova contratação; por si só, não pontua governança.
           </p>
         </details></div>
+      </section>
+      <section id="indicatorsPane" hidden aria-labelledby="indicatorsTitle">
+        <div class="ind-intro">
+          <div>
+            <p class="eyebrow">ACERVO DE INDICADORES · METODOLOGIA GRI</p>
+            <h1 id="indicatorsTitle">Indicadores ASG <em>para o planejamento estratégico</em></h1>
+            <p>
+              Referência para a Investe escolher o que monitorar. Os cinco indicadores principais
+              continuam calculados no painel; os demais formam o acervo de consulta.
+            </p>
+          </div>
+          <div class="ind-actions">
+            <button type="button" class="workspace-method" id="indTemplate">Baixar modelo</button>
+            <button type="button" class="workspace-method" id="indImportButton">Importar dados</button>
+            <input type="file" id="indImportFile" accept=".csv,text/csv" hidden>
+            <button type="button" class="ind-export" id="indExport">
+              Exportar seleção <span class="ind-count" id="indSelectedCount">0</span>
+            </button>
+          </div>
+        </div>
+        <section class="core-strip" id="indCore" aria-label="Cinco indicadores principais"></section>
+        <div class="ind-import-status" id="indImportStatus" role="status" hidden></div>
+        <div class="workspace-tabs" role="tablist" aria-label="Perspectiva dos indicadores" id="indTabs">
+          <button role="tab" id="indTabEmpresas" data-ind-tab="EMPRESAS" aria-controls="indBody" aria-selected="true" tabindex="0">ASG Empresas e projetos<span class="ind-tab-count"></span></button>
+          <button role="tab" id="indTabInveste" data-ind-tab="INVESTE" aria-controls="indBody" aria-selected="false" tabindex="-1">ASG Investe Piauí<span class="ind-tab-count"></span></button>
+          <button role="tab" id="indTabTodos" data-ind-tab="TODOS" aria-controls="indBody" aria-selected="false" tabindex="-1">Todos os indicadores<span class="ind-tab-count"></span></button>
+        </div>
+        <div id="indBody" class="ind-body" role="tabpanel" aria-labelledby="indTabEmpresas">
+          <p class="ind-tab-desc" id="indTabDesc"></p>
+          <div class="ind-toolbar">
+            <label class="ind-search"
+              ><svg class="icon mini" aria-hidden="true"><use href="#i-search" /></svg
+              ><input id="indSearch" type="search" placeholder="Buscar por código, nome ou palavra-chave (ex.: emprego)" aria-label="Buscar indicador"
+            ></label>
+            <div class="ind-chips" id="indChips" role="group" aria-label="Dimensão"></div>
+            <select id="indOrigin" aria-label="Origem do indicador">
+              <option value="">Todas as origens</option>
+              <option value="referencia">Lista de referência</option>
+              <option value="sugerido">Sugeridos pela equipe</option>
+            </select>
+            <select id="indData" aria-label="Situação dos dados">
+              <option value="">Com e sem dados</option>
+              <option value="com">Com dados importados</option>
+              <option value="sem">A coletar</option>
+            </select>
+            <span class="ind-result" id="indResult" aria-live="polite"></span>
+          </div>
+          <div class="ind-layout">
+            <div class="ind-grid" id="indGrid"></div>
+            <aside class="ind-detail" id="indDetail" aria-live="polite"></aside>
+          </div>
+        </div>
       </section>
       <section id="catalogPane" hidden>
         <div class="catalog-intro">

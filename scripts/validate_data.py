@@ -74,6 +74,11 @@ def validate(repository):
         require(row["cents"] >= 0, "Fundo Clima: valor negativo.")
         require(set(row["rules"]) <= rule_ids, "Regra de enquadramento desconhecida.")
         require(set(row["tags"]) <= {"agro", "energia", "logistica"}, "Nicho desconhecido.")
+    indicators = repository.indicators()["items"]  # Enum, duplicate and empty-field checks in the repository.
+    require(
+        sum(r["origem"] == "referencia" for r in indicators) == 6,
+        "A lista de referência GRI deve manter os seis indicadores do arquivo.",
+    )
     internal = referral_indicator(repository.internal_projects(), **repository.internal_period())
     require(
         internal["status"] != "invalid",
@@ -85,6 +90,7 @@ def validate(repository):
         "fne_ufs": len(payload["ufRows"]),
         "fundo_clima": len(finance["rows"]),
         "combinacoes_reconciliadas": combinations,
+        "indicadores_gri": len(indicators),
         "indicador_interno": internal["status"],
     }
 

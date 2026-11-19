@@ -8,6 +8,7 @@ Base local: `http://127.0.0.1:8000/api/v1`. Respostas JSON, UTF-8. Sem autentica
 | `GET /datasets/finance` | Fundo Clima, catálogo, regras, municípios e geometria para o frontend |
 | `GET /datasets/fne` | FNE PI, agregados por UF, fontes e referências anuais |
 | `GET /datasets/atlas` | Matriz IBGE e malha simplificada para o mapa |
+| `GET /datasets/indicators` | Acervo de indicadores GRI (catálogo, sem valores de empresas) |
 | `GET /catalog` | Catálogo de instrumentos |
 | `GET /fne/summary` | Indicadores financeiros e distribuições do FNE |
 | `GET /fne/records` | Linhas do PI, com paginação |

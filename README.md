@@ -36,7 +36,7 @@ O dashboard organiza o financiamento nas abas **Visão geral**, **Evolução e p
 
 | Pasta / arquivo | Responsabilidade |
 | --- | --- |
-| `frontend/index.html` | Página de financiamento, visão interna e pontuação ESG |
+| `frontend/index.html` | Página de financiamento, visão interna, pontuação ESG e indicadores ASG |
 | `frontend/contexto.html` | Mapa do contexto produtivo |
 | `frontend/assets/css/` | Estilos e layout |
 | `frontend/assets/js/` | Filtros, mapas SVG, gráficos, navegação e consumo da API |
@@ -61,6 +61,14 @@ A aba reproduz a versão publicada em 11/11/2026. São três projetos fictícios
 
 A nota é a média de Ambiental, Social e Governança, com dois indicadores por dimensão e pontuações de 0, 50 ou 100. A nota geral só aparece quando todos os seis indicadores podem ser avaliados. A Brasbio, caso real com registro no Fundo Clima, aparece como **Em avaliação**. A aba funciona com Flask, no build estático e na versão offline.
 
+## Indicadores ASG (acervo GRI)
+
+A aba **Indicadores ASG** reúne 24 indicadores GRI para a Investe escolher o que monitorar no planejamento estratégico. Os cinco indicadores principais continuam calculados em Financiamentos e aparecem no topo da aba. O acervo fica em `data/processed/indicadores_gri.csv` e se divide em **ASG Empresas e projetos** (impactos dos empreendimentos) e **ASG Investe Piauí** (governança da própria instituição). Seis indicadores vêm da lista de referência da equipe; os demais são sugestões.
+
+Para registrar valores, use **Baixar modelo**, preencha o CSV no Excel e envie por **Importar dados**. O arquivo é lido somente no navegador: nada é enviado ao servidor nem gravado no repositório, e os dados ficam guardados no próprio navegador até **Limpar dados importados**. Cada linha é validada e as recusadas aparecem com o motivo. A seleção de indicadores pode ser exportada em CSV. O acervo **não altera** a Pontuação ESG. Colunas e regras do modelo em [docs/DADOS.md](docs/DADOS.md#modelo-de-importação-de-valores).
+
+Todas as páginas exibem, abaixo do menu, a faixa com o tema do trabalho.
+
 ## Dados incluídos
 
 | Base | Linhas | Unidade |
@@ -72,6 +80,7 @@ A nota é a média de Ambiental, Social e Governança, com dois indicadores por 
 | Atividades IBGE | 157 | Série produtiva ou total publicado |
 | Produção municipal | 175.840 | Atividade × município × ano, incluindo ausentes |
 | Instrumentos / regras | 3 / 7 | Catálogo documental / regra de enquadramento |
+| Indicadores GRI | 24 | Indicador de referência para monitoramento |
 | Projetos internos | 0 | Aguardando dados da Investe |
 
 Os CSVs são UTF-8, separados por vírgula e com ponto decimal. Abra no Excel por **Dados → De Texto/CSV**, selecionando a codificação e o separador. Campos com listas usam JSON dentro da célula. As unidades e os principais campos estão em [docs/DADOS.md](docs/DADOS.md).

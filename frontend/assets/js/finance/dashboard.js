@@ -174,7 +174,7 @@
       if (!tab) return;
       if (tab.dataset.workspaceView) {
         setWorkspaceView(tab.dataset.workspaceView);
-      } else {
+      } else if (tab.dataset.localPanel) {
         for (const button of tablist.querySelectorAll('[role="tab"]')) {
           const selected = button === tab;
           button.setAttribute('aria-selected', String(selected));
@@ -202,17 +202,21 @@
     $('fnePane').hidden = p !== 'overview' || state.instrument !== 'FNE_VERDE';
     $('internalPane').hidden = p !== 'internal';
     $('esgPane').hidden = p !== 'esg';
+    $('indicatorsPane').hidden = p !== 'indicators';
     $('catalogPane').hidden = p !== 'catalog';
     for (const [id, pane] of [
       ['navOverview', 'overview'],
       ['navCatalog', 'catalog'],
       ['navInternal', 'internal'],
-      ['navEsg', 'esg']
+      ['navEsg', 'esg'],
+      ['navIndicators', 'indicators']
     ]) {
       $(id).classList.toggle('nav-active', p === pane);
       if (p === pane) $(id).setAttribute('aria-current', 'page');
       else $(id).removeAttribute('aria-current');
     }
+    // Read the headline cards after the current render has filled them.
+    if (p === 'indicators') requestAnimationFrame(() => window.INDICATORS_VIEW?.show());
     urlState();
   }
   function urlState() {
@@ -762,7 +766,7 @@
     if (['todos', ...D.rows.map(r => r.size)].includes(p.get('size'))) state.size = p.get('size');
     if (['NE', 'BR'].includes(p.get('comparator'))) state.comparator = p.get('comparator');
     if (D.cities.some(c => c.id === p.get('city'))) state.city = p.get('city');
-    if (['internal', 'catalog', 'esg'].includes(p.get('pane'))) state.pane = p.get('pane');
+    if (['internal', 'catalog', 'esg', 'indicators'].includes(p.get('pane'))) state.pane = p.get('pane');
     if (['overview', 'charts', 'territory', 'records'].includes(p.get('view')))
       state.view = p.get('view');
     window.FNE_VIEW.restore(p);
@@ -810,6 +814,11 @@
   $('navEsg').onclick = () => {
     closeTour();
     setPane('esg');
+    window.scrollTo({ top: 0 });
+  };
+  $('navIndicators').onclick = () => {
+    closeTour();
+    setPane('indicators');
     window.scrollTo({ top: 0 });
   };
   $('navInternal').onclick = () => setPane('internal');

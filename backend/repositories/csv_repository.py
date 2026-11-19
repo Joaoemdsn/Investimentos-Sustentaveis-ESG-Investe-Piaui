@@ -73,6 +73,28 @@ class CsvRepository:
         return rows
 
     @lru_cache(maxsize=1)
+    def indicators(self):
+        """GRI reference catalogue. Values are imported by users in the browser, never stored here."""
+        allowed = {
+            "dimensao": {"AMBIENTAL", "SOCIAL", "GOVERNANCA", "ECONOMICA"},
+            "perspectiva": {"EMPRESAS", "INVESTE", "AMBAS"},
+            "origem": {"referencia", "sugerido"},
+        }
+        required = ("codigo", "nome", "norma", "pergunta", "relacao_tema", "unidade", "periodicidade")
+        rows, codes = self.read_csv("indicadores_gri.csv"), set()
+        for row in rows:
+            code = row["codigo"]
+            if not code.startswith("GRI ") or code in codes:
+                raise DataError(f"Código GRI inválido ou duplicado: {code!r}")
+            codes.add(code)
+            for field, values in allowed.items():
+                if row[field] not in values:
+                    raise DataError(f"{code}: valor inválido em {field}.")
+            if any(not row[field].strip() for field in required):
+                raise DataError(f"{code}: campo obrigatório vazio.")
+        return {"items": rows}
+
+    @lru_cache(maxsize=1)
     def finance(self):
         payload = self.metadata("finance.json")
         payload.update(

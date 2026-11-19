@@ -52,6 +52,18 @@ Coorte é o conjunto de projetos com demanda entre início e fim, inclusive. IDs
 
 Sem registros: pendente e percentual nulo. Coorte vazia: percentual nulo. Registros/datas inválidos ou IDs duplicados: cálculo bloqueado. O desenho e o papel da Investe nesse fluxo ainda precisam de validação institucional.
 
+## Acervo de indicadores GRI
+
+A avaliação pediu um conjunto mais amplo de indicadores para o planejamento estratégico da Investe, que cruzará Plano de Governo, Complexidade Econômica e ASG. Os cinco indicadores principais continuam os mesmos. O acervo os complementa com 24 conteúdos GRI: os seis da lista de referência da equipe (303-5, 305-1, 403-9, 404-1, 405-1 e 205-2) e 18 sugestões.
+
+**Critério de inclusão:** o indicador precisa responder a uma pergunta sobre o resultado dos investimentos atraídos ou sobre a atuação da Investe. A ênfase está no impacto social e econômico: empregos na obra e na operação (401-1, desagregável por região), contratação local (202-2), participação de mulheres e homens (405-1, 405-2), compras locais (204-1), valor distribuído (201-1) e efeitos sobre a comunidade (413-1, 203-1, 203-2).
+
+**Perspectivas:** a Investe atrai investimentos e acompanha o ciclo dos empreendimentos, sem atuar necessariamente como financiadora. Por isso o acervo separa **ASG Empresas e projetos**, sobre os empreendimentos, de **ASG Investe Piauí**, sobre governança e integridade da instituição. Capacitação (404-1) e diversidade (405-1) valem para as duas. Em 308-1 e 414-1, a norma trata de fornecedores; a leitura proposta aplica o critério aos projetos e parceiros atraídos.
+
+**Normas em transição:** a GRI 101: Biodiversidade 2024 substitui a GRI 304, e as GRI 102: Mudanças Climáticas 2025 e GRI 103: Energia 2025 substituirão as GRI 305 e 302. Os conteúdos afetados trazem esse aviso e devem ter a equivalência conferida quando forem adotados.
+
+O acervo não altera a Pontuação ESG. A ligação entre valores importados e nota, que dependeria de meta e sentido por indicador, fica para uma etapa posterior.
+
 ## Rastreabilidade
 
 Cada registro financeiro mantém identificador de fonte e linha de origem quando disponível. URLs, datas, hashes de fontes FNE e da planilha consolidada estão nos metadados. `export.json` identifica o commit e o protótipo de origem. Os testes comparam os três conjuntos reconstruídos com hashes de referência desse snapshot.

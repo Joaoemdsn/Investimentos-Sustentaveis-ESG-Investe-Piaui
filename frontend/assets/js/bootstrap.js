@@ -26,9 +26,10 @@
       window.ATLAS_DATA = await dataset('atlas');
       await script('context/atlas.js');
     } else {
-      [window.FINANCE_DATA, window.FNE_DATA] = await Promise.all([
+      [window.FINANCE_DATA, window.FNE_DATA, window.INDICATORS_DATA] = await Promise.all([
         dataset('finance'),
-        dataset('fne')
+        dataset('fne'),
+        dataset('indicators')
       ]);
       const internalUrl = runtime === 'static' ? 'data/internal.json' : 'api/v1/internal/indicator';
       const response = await fetch(new URL(internalUrl, root));
@@ -37,6 +38,7 @@
       await script('finance/fne-math.js');
       await script('finance/fne.js');
       await script('finance/esg.js');
+      await script('finance/indicators.js');
       await script('finance/dashboard.js');
       await script('finance/internal.js');
     }

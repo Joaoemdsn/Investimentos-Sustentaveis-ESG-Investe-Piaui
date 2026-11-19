@@ -25,7 +25,7 @@ def build(destination=None):
         (destination / name).write_text(html, encoding="utf-8")
     repository = CsvRepository(ROOT / "data")
     (destination / "data").mkdir(exist_ok=True)
-    for name in ("finance", "fne", "atlas"):
+    for name in ("finance", "fne", "atlas", "indicators"):
         (destination / "data" / f"{name}.json").write_text(
             json.dumps(getattr(repository, name)(), ensure_ascii=False, separators=(",", ":")),
             encoding="utf-8",

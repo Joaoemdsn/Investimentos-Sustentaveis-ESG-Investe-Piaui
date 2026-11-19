@@ -17,6 +17,11 @@
       indicators: ['Transparência na aplicação dos recursos', 'Prestação de contas da execução']
     }
   ];
+  // Reference only: the score is unchanged; the code links to the GRI catalogue tab.
+  const griCodes = {
+    'Empregos diretos gerados': 'GRI 401-1',
+    'Qualificação ou inclusão produtiva': 'GRI 404-1'
+  };
   // Observed and target values below are invented for this demonstration only.
   const projects = [
     {
@@ -151,6 +156,7 @@
               return (
                 '<div class="esg-metric"><h4>' +
                 title +
+                (griCodes[title] ? ' <span class="gri-code">' + griCodes[title] + '</span>' : '') +
                 '</h4><p>' +
                 detail +
                 '</p><span class="esg-grade" data-grade="' +

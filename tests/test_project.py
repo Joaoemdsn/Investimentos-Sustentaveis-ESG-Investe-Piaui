@@ -94,6 +94,29 @@ class ProjectTests(unittest.TestCase):
         self.assertIsNone(self.client.get("/api/v1/internal/indicator").json["rate"])
         self.assertEqual(self.client.get("/api/v1/datasets/atlas").json, self.repo.atlas())
 
+    def test_gri_indicator_catalogue(self):
+        items = self.repo.indicators()["items"]
+        self.assertEqual(len(items), 24)
+        self.assertEqual(len({i["codigo"] for i in items}), 24)
+        reference = {i["codigo"] for i in items if i["origem"] == "referencia"}
+        self.assertEqual(
+            reference, {"GRI 303-5", "GRI 305-1", "GRI 403-9", "GRI 404-1", "GRI 405-1", "GRI 205-2"}
+        )
+        self.assertTrue({"EMPRESAS", "INVESTE", "AMBAS"} <= {i["perspectiva"] for i in items})
+        self.assertEqual(self.client.get("/api/v1/datasets/indicators").json, self.repo.indicators())
+
+    def test_gri_catalogue_rejects_invalid_rows(self):
+        source = (ROOT / "data/processed/indicadores_gri.csv").read_text(encoding="utf-8")
+        header, first = source.splitlines()[:2]
+        for broken in ([first, first], [first.replace(",SOCIAL,", ",OUTRA,", 1)]):
+            with self.subTest(broken=broken[0][:40]), tempfile.TemporaryDirectory() as folder:
+                (Path(folder) / "processed").mkdir()
+                (Path(folder) / "processed/indicadores_gri.csv").write_text(
+                    "\n".join([header, *broken]) + "\n", encoding="utf-8"
+                )
+                with self.assertRaises(DataError):
+                    CsvRepository(folder).indicators()
+
     def test_routes_and_assets(self):
         for path in (
             "/",
@@ -103,6 +126,8 @@ class ProjectTests(unittest.TestCase):
             "/assets/images/investe-piaui-horizontal.svg",
             "/assets/css/esg.css",
             "/assets/js/finance/esg.js",
+            "/assets/css/indicators.css",
+            "/assets/js/finance/indicators.js",
             "/offline.html",
             "/contexto-offline.html",
         ):
@@ -114,23 +139,30 @@ class ProjectTests(unittest.TestCase):
     def test_static_and_analytical_builds(self):
         with tempfile.TemporaryDirectory() as folder:
             destination = build(Path(folder) / "static")
-            index = (destination / "index.html").read_text()
+            index = (destination / "index.html").read_text(encoding="utf-8")
             self.assertIn('data-runtime="static"', index)
             self.assertIn('id="esgPane"', index)
+            self.assertIn('id="indicatorsPane"', index)
+            self.assertEqual(
+                json.loads((destination / "data/indicators.json").read_text(encoding="utf-8")),
+                self.repo.indicators(),
+            )
             self.assertTrue((destination / "assets/js/finance/esg.js").is_file())
             self.assertTrue((destination / "assets/css/esg.css").is_file())
-            self.assertEqual(json.loads((destination / "data/fne.json").read_text()), self.repo.fne())
+            self.assertEqual(json.loads((destination / "data/fne.json").read_text(encoding="utf-8")), self.repo.fne())
             self.assertEqual(
-                json.loads((destination / "data/internal.json").read_text())["status"], "pending"
+                json.loads((destination / "data/internal.json").read_text(encoding="utf-8"))["status"], "pending"
             )
             self.assertTrue((destination / ".nojekyll").exists())
-            html = (destination / "offline.html").read_text()
+            html = (destination / "offline.html").read_text(encoding="utf-8")
             self.assertIn('id="esgPane"', html)
             self.assertIn('SIMULAÇÃO · TODOS OS DADOS SÃO FICTÍCIOS', html)
             self.assertNotIn('<script src=', html)
             self.assertNotIn('<link rel="stylesheet"', html)
             self.assertNotIn('url("../images', html)
             self.assertIn("window.FIN_CONTEXT_OFFLINE=", html)
+            self.assertIn("window.INDICATORS_DATA=", html)
+            self.assertIn('id="indicatorsPane"', html)
             self.assertIn("data:image/svg+xml;base64,", html)
             report = export(Path(folder) / "reports")
             self.assertTrue((report / "indicadores_fne.csv").is_file())

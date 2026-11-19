@@ -70,6 +70,38 @@ Não aplique relacionamento obrigatório entre todos os códigos do Fundo Clima 
 
 `regras_enquadramento.csv`: ID, nicho e descrição do critério de classificação. As listas de IDs no Fundo Clima permitem rastrear a regra de cada registro.
 
+## Acervo de indicadores GRI (`indicadores_gri.csv`)
+
+| Campo | Conteúdo |
+| --- | --- |
+| `codigo` | Código único no formato `GRI 401-1` |
+| `nome`, `norma` | Nome do conteúdo e norma GRI de origem |
+| `dimensao` | `AMBIENTAL`, `SOCIAL`, `GOVERNANCA` ou `ECONOMICA` |
+| `perspectiva` | `EMPRESAS` (empreendimentos acompanhados), `INVESTE` (a própria instituição) ou `AMBAS` |
+| `origem` | `referencia` (seis indicadores da lista da equipe) ou `sugerido` |
+| `pergunta`, `relacao_tema` | Pergunta prática que o indicador responde e vínculo com o tema |
+| `unidade`, `periodicidade`, `fonte_sugerida` | Como medir |
+| `observacao` | Avisos, como a substituição de normas GRI |
+
+O repositório valida códigos únicos, valores permitidos e campos obrigatórios. O acervo é um catálogo: não contém valores de empresas.
+
+## Modelo de importação de valores
+
+Gerado pelo botão **Baixar modelo** (separador `;`, UTF-8 com BOM, compatível com o Excel em português). Vem com uma linha por indicador selecionado ou, sem seleção, por indicador do acervo.
+
+| Coluna | Regra |
+| --- | --- |
+| `codigo_gri` | Obrigatório; precisa existir no acervo (`401-1` também é aceito) |
+| `empresa_projeto` | Obrigatório; para indicadores da Investe, use `Investe Piauí` |
+| `municipio` | Opcional; se preenchido, precisa ser município do Piauí (acentos e maiúsculas são ignorados) |
+| `ano` | Obrigatório; quatro dígitos |
+| `valor` | Obrigatório; aceita `1234,5`, `1.234,5` e `1234.5`. `1.234` sozinho é ambíguo e recusado |
+| `unidade` | Opcional; vazio usa a unidade do acervo |
+| `meta`, `sentido` | Opcionais; `sentido` = `maior é melhor` ou `menor é melhor`. Reservados para uma futura ligação com a pontuação |
+| `fonte`, `observacao` | Opcionais |
+
+Linhas sem empresa, ano e valor são ignoradas, para que o modelo possa ficar parcialmente preenchido. Linhas repetidas (mesmo indicador, empresa, município e ano) são recusadas. Limites: 2 MB e 5.000 linhas por arquivo. Cada importação substitui a anterior. Os dados ficam somente no navegador (`localStorage`) e não entram nos CSVs, na API, no build estático ou nas cópias offline.
+
 ## Dados internos
 
 Cabeçalho em `templates/projetos_internos.csv`. A aplicação procura os registros preenchidos em `data/private/projetos_internos.csv`; na ausência, usa o template vazio.
