@@ -267,3 +267,14 @@
   .esg-picker { width: 100%; }
   .esg-spotlight { padding: 20px; }
 }
+
+/* Who answers for each indicator: the company/project or Investe Piauí. */
+.scope-tag { display: inline-block; padding: 1px 8px; border-radius: 99px; font-size: 11px; font-weight: 700; letter-spacing: .3px; white-space: nowrap; vertical-align: middle; }
+.scope-tag[data-scope='EMPRESAS'] { background: #e1efe5; color: #1f5a40; }
+.scope-tag[data-scope='INVESTE'] { background: #e3e9f3; color: #2f4f6e; }
+.scope-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin: 0 0 10px; color: var(--muted); font-size: 13px; }
+.scope-legend .scope-tag + .scope-tag, .scope-legend .scope-tag:nth-of-type(2) { margin-left: 12px; }
+@media (min-width: 1101px) and (min-height: 700px) {
+  .finance-page #esgIndicatorsView { display: flex; flex-direction: column; }
+  .finance-page #esgIndicatorsView > #esgDimensions { flex: 1; min-height: 0; height: auto; }
+}

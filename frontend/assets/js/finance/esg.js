@@ -17,10 +17,27 @@
       indicators: ['Transparência na aplicação dos recursos', 'Prestação de contas da execução']
     }
   ];
-  // Reference only: the score is unchanged; the code links to the GRI catalogue tab.
-  const griCodes = {
-    'Empregos diretos gerados': 'GRI 401-1',
-    'Qualificação ou inclusão produtiva': 'GRI 404-1'
+  // Labels only: the score is unchanged. Scope says who answers for the indicator.
+  const SCOPES = {
+    EMPRESAS: { label: 'ASG Empresas', title: 'ASG Empresas e projetos' },
+    INVESTE: { label: 'ASG Investe', title: 'ASG Investe Piauí' }
+  };
+  const labels = {
+    'Resultado ambiental': { scope: 'EMPRESAS' },
+    'Acompanhamento da meta ambiental': { scope: 'INVESTE' },
+    'Empregos diretos gerados': { scope: 'EMPRESAS', gri: 'GRI 401-1' },
+    'Qualificação ou inclusão produtiva': { scope: 'EMPRESAS', gri: 'GRI 404-1' },
+    'Transparência na aplicação dos recursos': { scope: 'EMPRESAS' },
+    'Prestação de contas da execução': { scope: 'INVESTE' }
+  };
+  const tags = title => {
+    const meta = labels[title] || {};
+    const scope = SCOPES[meta.scope];
+    return (
+      (scope
+        ? ' <span class="scope-tag" data-scope="' + meta.scope + '" title="' + scope.title + '">' + scope.label + '</span>'
+        : '') + (meta.gri ? ' <span class="gri-code">' + meta.gri + '</span>' : '')
+    );
   };
   // Observed and target values below are invented for this demonstration only.
   const projects = [
@@ -156,7 +173,7 @@
               return (
                 '<div class="esg-metric"><h4>' +
                 title +
-                (griCodes[title] ? ' <span class="gri-code">' + griCodes[title] + '</span>' : '') +
+                tags(title) +
                 '</h4><p>' +
                 detail +
                 '</p><span class="esg-grade" data-grade="' +

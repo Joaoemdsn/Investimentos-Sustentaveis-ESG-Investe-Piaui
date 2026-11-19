@@ -61,6 +61,10 @@ A aba reproduz a versão publicada em 11/11/2026. São três projetos fictícios
 
 A nota é a média de Ambiental, Social e Governança, com dois indicadores por dimensão e pontuações de 0, 50 ou 100. A nota geral só aparece quando todos os seis indicadores podem ser avaliados. A Brasbio, caso real com registro no Fundo Clima, aparece como **Em avaliação**. A aba funciona com Flask, no build estático e na versão offline.
 
+Cada indicador traz uma etiqueta de responsabilidade: **ASG Empresas** (resultado entregue pela empresa ou pelo projeto) ou **ASG Investe** (acompanhamento e governança da Investe Piauí), além do código GRI quando houver equivalência. As etiquetas não alteram a nota.
+
+**Evolução prevista:** permitir que as empresas importadas na aba Indicadores ASG apareçam no seletor da Pontuação ESG e que seus indicadores com `meta` e `sentido` preenchidos entrem no cálculo da nota.
+
 ## Indicadores ASG (acervo GRI)
 
 A aba **Indicadores ASG** reúne 24 indicadores GRI para a Investe escolher o que monitorar no planejamento estratégico. Os cinco indicadores principais continuam calculados em Financiamentos e aparecem no topo da aba. O acervo fica em `data/processed/indicadores_gri.csv` e se divide em **ASG Empresas e projetos** (impactos dos empreendimentos) e **ASG Investe Piauí** (governança da própria instituição). Seis indicadores vêm da lista de referência da equipe; os demais são sugestões.
